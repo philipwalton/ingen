@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var fs = require('fs')
+  , path = require('path')
+  , basePath = path.normalize(__dirname + path.sep + '..')
+  , pkg = JSON.parse(fs.readFileSync(path.join(basePath, 'package.json')))
+  , program = require('commander')
+
+program
+  .version(pkg.version)
+  .option('-s, --source [dir]', 'source directory (defaults to ./)', './')
+  .option('-d, --destination [dir]', 'destination directory (defaults to ./_site)', './_site')
+
+program
+  .command('build')
+  .description('Build the site')
+  .action(function(p){
+    console.log('build')
+  })
+
+program
+  .command('serve')
+  .description('Serve the site locally')
+  .option('-p, --port [number]', 'port to listen on (defaults to 4000)', 4000)
+  .action(function(){
+    console.log('serve')
+  })
+
+program.on('source', function() {
+  console.log("source option set...")
+})
+
+program.on('destination', function() {
+  console.log("destination option set...")
+})
+
+program.parse(process.argv)
+
+// default to showing --help
+if (program.rawArgs.length < 3) program.help()
