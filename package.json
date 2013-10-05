@@ -1,0 +1,28 @@
+{
+  "name": "torpedo",
+  "version": "0.1.0",
+  "description": "A static site generator written in node.",
+  "main": "index.js",
+  "author": {
+    "name": "Philip Walton",
+    "url": "http://philipwalton.com"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "static",
+    "site",
+    "generator",
+    "node",
+    "blog"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/philipwalton/torpedo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/philipwalton/torpedo.git"
+  }
+}
