@@ -15,7 +15,9 @@ program
   .command('build')
   .description('Build the site')
   .action(function(p){
-    console.log('build')
+    var Torpedo = require("../index.js")
+    console.log('building...')
+    // console.log(Torpedo.site)
   })
 
 program
