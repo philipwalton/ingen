@@ -5,6 +5,7 @@ var fs = require('fs')
   , basePath = path.normalize(__dirname + path.sep + '..')
   , pkg = JSON.parse(fs.readFileSync(path.join(basePath, 'package.json')))
   , program = require('commander')
+  , site = require("../lib/site")
 
 program
   .version(pkg.version)
@@ -15,9 +16,8 @@ program
   .command('build')
   .description('Build the site')
   .action(function(p){
-    var Torpedo = require("../index.js")
     console.log('building...')
-    // console.log(Torpedo.site)
+    site.build()
   })
 
 program
