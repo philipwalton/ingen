@@ -14,8 +14,8 @@ Events
 ======
 
 * `torpedo build`
-* Read config file
 * Create a `site` object that will hold all the content data
+* Read config file
 * Scan directories and gather all custom content data
 * Scan directories for all static files (non-custom content) that need to be copied
 * Meta program helper functions to iterate through all of the content data
