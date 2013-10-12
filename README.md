@@ -9,6 +9,12 @@ Torpedo
 * Event driven
   * handlers can be added to transform content or create additional content
 
+Handlebars Helpers
+==================
+
+* http://elving.github.io/swag/
+* http://assemble.io/helpers/
+
 
 Events
 ======
