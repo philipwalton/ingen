@@ -11,7 +11,7 @@ marked.setOptions({
 })
 
 site.on('transform', function(page) {
-  if (page.extension == '.md') {
-    page.content = marked(page.content)
+  if (page.file.extension == '.md') {
+    page.file.content = marked(page.file.content)
   }
 })
