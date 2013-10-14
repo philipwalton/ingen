@@ -43,6 +43,7 @@
     "natural": "~0.1.22",
     "yaml": "~0.2.3",
     "lodash": "~2.2.1",
-    "handlebars": "~1.0.12"
+    "handlebars": "~1.0.12",
+    "html-minifier": "~0.5.4"
   }
 }

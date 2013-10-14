@@ -24,7 +24,7 @@ function filesOnly(file) {
 describe('torpedo', function() {
 
   beforeEach(clean)
-  after(clean)
+  // after(clean)
 
   describe('build', function() {
     it('should build the site', function(done) {
