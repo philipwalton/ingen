@@ -13,18 +13,8 @@ function fixture(name) {
   return read('test/fixtures/' + name + '.html')
 }
 
-function readGenerated(filename, destination) {
-  var loc = path.resolve(destination || '_site', filename)
-  return read(loc, 'utf8').trim()
-}
-
-function readExpected(filename) {
-  var loc = path.resolve('../expected', filename)
-  return read(loc, 'utf8').trim()
-}
-
 function clean() {
-  shell.rm('-rf', '_site');
+  shell.rm('-rf', 'test/src/_site');
 }
 
 function filesOnly(file) {
