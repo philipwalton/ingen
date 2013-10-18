@@ -1,19 +1,24 @@
-Torpedo
+Torpedo (maybe Zeppelin)
 =======
 
 ## Features
 
 * Custom content types
-  * registered in the config.json
+  * registered in the _config.json
   * residing in a directory of the content type name (_posts, _pages, _articles)
+* Custom taxonomy types
+  * also registered in the _config.json
+  * like tags or categories
+* Pagination
+  * unlike Jekyll which only has pagination on the home page, Torpedo can paginate any page that registered pagination
+  * in the page head-data, simply set the pagination key to a numerical value representing the number of content types on that page
 * Event driven
-  * handlers can be added to transform content or create additional content
+  * handlers can be added to transform content or create additional content at any point in the build cycle
 
-Handlebars Helpers
-==================
+TODO
+====
 
-* http://elving.github.io/swag/
-* http://assemble.io/helpers/
+* Combine `Site` and `Page` objects into a single, `Page` object
 
 
 Events
@@ -52,4 +57,11 @@ Objects
   * outputExt (define an output extension)
   * transform (the logic that converts the file)
 * Used to transform the contents of a file (like autoprefix the css)
+
+Handlebars Helpers
+==================
+
+* http://elving.github.io/swag/
+* http://assemble.io/helpers/
+
 
