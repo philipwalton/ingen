@@ -1,4 +1,1 @@
-
-require('./lib/site').build()
-
-module.exports = {}
+module.exports = require('./lib/site')
