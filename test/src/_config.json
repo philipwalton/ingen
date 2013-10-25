@@ -1,5 +1,5 @@
 {
   "title": "Torpedo",
-  "baseUrl": "http://example.com",
+  "baseURL": "http://example.com",
   "contentTypes": ["article", "page"]
 }

@@ -10,7 +10,7 @@ marked.setOptions({
   }
 })
 
-site.on('beforeRender', function(page) {
+site.on('transformFile', function(page) {
   if (page.extension == '.md') {
     page.content = marked(page.content)
   }
