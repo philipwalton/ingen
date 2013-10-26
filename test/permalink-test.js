@@ -13,13 +13,13 @@ describe('Permalink', function() {
       expect(p.toString()).to.equal('/sub-directory/foo-to-the-bar.html')
     })
 
-    it('adds a trailing slash if the permalink does end with `.html`', function() {
+    it('adds a trailing slash if the permalink doesn\'t have an extension', function() {
       var p = new Permalink('foo.html')
       expect(p.toString()).to.equal('/foo.html')
       var p = new Permalink('foo')
       expect(p.toString()).to.equal('/foo/')
       var p = new Permalink('foo.bar')
-      expect(p.toString()).to.equal('/foo.bar/')
+      expect(p.toString()).to.equal('/foo.bar')
     })
 
     it('can replace `:title` with a url-friendly post\'s title', function() {
