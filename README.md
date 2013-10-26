@@ -10,7 +10,7 @@ InGen
   * also registered in the _config.json
   * like tags or categories
 * Pagination
-  * unlike Jekyll which only has pagination on the home page, Torpedo can paginate any page that registered pagination
+  * unlike Jekyll which only has pagination on the home page, InGen can paginate any page that registered pagination
   * in the page head-data, simply set the pagination key to a numerical value representing the number of content types on that page
 * Event driven
   * handlers can be added to transform content or create additional content at any point in the build cycle
