@@ -1,5 +1,5 @@
 {
-  "name": "torpedo",
+  "name": "ingen",
   "version": "0.1.0",
   "description": "A static site generator written in node.",
   "main": "index.js",
@@ -19,11 +19,11 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/philipwalton/torpedo/issues"
+    "url": "https://github.com/philipwalton/ingen/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/philipwalton/torpedo.git"
+    "url": "git://github.com/philipwalton/ingen.git"
   },
   "devDependencies": {
     "mocha": "~1.13.0",

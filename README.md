@@ -1,5 +1,5 @@
-Torpedo (maybe Zeppelin)
-=======
+InGen
+=====
 
 ## Features
 
@@ -19,7 +19,7 @@ Torpedo (maybe Zeppelin)
 Events
 ======
 
-* `torpedo build`
+* `ingen build`
 * Create a `site` object that will hold all the content data
 * Read config file
 * Scan directories and gather all custom content data

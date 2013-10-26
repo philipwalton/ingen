@@ -22,7 +22,7 @@ function filesOnly(file) {
   return fs.statSync(file).isFile()
 }
 
-describe('torpedo', function() {
+describe('ingen', function() {
 
   beforeEach(clean)
   // after(clean)
@@ -30,7 +30,7 @@ describe('torpedo', function() {
   describe('build', function() {
     it('should build the site', function(done) {
       var spawn = require('child_process').spawn
-        , child = spawn('torpedo', ['build'], {cwd: 'test/src'})
+        , child = spawn('ingen', ['build'], {cwd: 'test/src'})
 
       child.on('close', function() {
         var generatedFiles = glob.sync('test/src/_site/**/*').filter(filesOnly)
