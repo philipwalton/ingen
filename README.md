@@ -15,11 +15,6 @@ Torpedo (maybe Zeppelin)
 * Event driven
   * handlers can be added to transform content or create additional content at any point in the build cycle
 
-TODO
-====
-
-* Combine `Site` and `Page` objects into a single, `Page` object
-
 
 Events
 ======
