@@ -1,7 +1,7 @@
 {
   "name": "ingen",
-  "version": "0.1.0",
-  "description": "A static site generator written in node.",
+  "version": "0.1.0-alpha",
+  "description": "An event driven, fully customizable, static site generator for node.",
   "main": "index.js",
   "author": {
     "name": "Philip Walton",
@@ -28,7 +28,8 @@
   "devDependencies": {
     "mocha": "~1.13.0",
     "chai": "~1.8.1",
-    "shelljs": "~0.2.6"
+    "shelljs": "~0.2.6",
+    "moment": "~2.3.1"
   },
   "dependencies": {
     "commander": "~2.0.0",
