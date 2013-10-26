@@ -6,3 +6,9 @@
 -->
 
 <p>This is the home page.</p>
+
+<ul>
+  {{#each site.articles}}
+    <li>{{title}}</li>
+  {{/each}}
+</ul>

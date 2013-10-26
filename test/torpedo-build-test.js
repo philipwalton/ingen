@@ -37,7 +37,10 @@ describe('torpedo', function() {
           , expectedFiles = glob.sync('test/expected/**/*').filter(filesOnly)
 
         _.times(expectedFiles.length, function(i) {
-          expect(read(expectedFiles[i])).to.equal(read(generatedFiles[i]))
+          // remove trailing whitespace before comparing
+          var expected = read(expectedFiles[i]).replace(/\s*\n/g, '\n')
+            , generated = read(generatedFiles[i]).replace(/\s*\n/g, '\n')
+          expect(expected).to.equal(generated)
         })
 
         done()
