@@ -1,5 +1,6 @@
 {
   "title": "InGen",
   "baseURL": "http://example.com",
-  "postTypes": ["article", "page"]
+  "permalink": ":type/:title",
+  "postTypes": ["article", "page", "author"]
 }

@@ -1,0 +1,46 @@
+<!--
+{
+  "layout": "default",
+  "title": "Iterators Test"
+}
+-->
+
+<h2>List of articles (defaults to sorting by date in descending order)</h2>
+<ol>
+  {{#eachArticle}}
+    <li>
+      <a href="{{ permalink }}">{{title}}</a><br>
+      on: {{date}}
+    </li>
+  {{/eachArticle}}
+</ol>
+
+<h2>Articles by date in asending order</h2>
+<ol>
+  {{#eachArticle sortBy="date" order="ascending"}}
+  <li>
+    <a href="{{ permalink }}">{{title}}</a><br>
+    on: {{date}}
+  </li>
+  {{/eachArticle}}
+</ol>
+
+<h2>Articles by title (defaults to ascending order)</h2>
+<ol>
+  {{#eachArticle sortBy="title"}}
+  <li>
+    <a href="{{ permalink }}">{{title}}</a><br>
+    on: {{date}}
+  </li>
+  {{/eachArticle}}
+</ol>
+
+<h2>Articles by title in descending order</h2>
+<ol>
+  {{#eachArticle sortBy="title" order="descending"}}
+  <li>
+    <a href="{{ permalink }}">{{title}}</a><br>
+    on: {{date}}
+  </li>
+  {{/eachArticle}}
+</ol>
