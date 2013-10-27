@@ -6,7 +6,6 @@ var fs = require('fs')
   , _ = require('lodash')
 
 function read(filename) {
-  debugger
   return fs.readFileSync(filename, 'utf8')
 }
 

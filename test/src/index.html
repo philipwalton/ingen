@@ -8,7 +8,7 @@
 <p>This is the home page.</p>
 
 <ul>
-  {{#each site.articles}}
+  {{#each site._posts.articles}}
     <li><a href="{{ permalink }}">{{title}}</a></li>
   {{/each}}
 </ul>
