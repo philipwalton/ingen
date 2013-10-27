@@ -1,5 +1,5 @@
 {
   "title": "InGen",
   "baseURL": "http://example.com",
-  "contentTypes": ["article", "page"]
+  "postTypes": ["article", "page"]
 }
