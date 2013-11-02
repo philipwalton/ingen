@@ -2,6 +2,7 @@
 var Handlebars = require('handlebars')
   , natural = require('natural')
   , inflector = new natural.NounInflector()
+  , _ = require('lodash')
 
 // local dependencies
 var site = require('../lib/site')
@@ -32,7 +33,7 @@ postTypes.forEach(function(type) {
     var taxonomyPlural = inflector.pluralize(taxonomy)
       , helperName = camelize('if', type, 'Has', taxonomy)
     Handlebars.registerHelper(helperName, function(value, options) {
-      return this[taxonomyPlural].indexOf(value) > -1
+      return this[taxonomyPlural] && _.contains(this[taxonomyPlural], value)
         ? options.fn(this)
         : options.inverse(this)
     })
