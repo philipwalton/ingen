@@ -35,6 +35,8 @@ describe('ingen', function() {
         var generatedFiles = glob.sync('test/src/_site/**/*').filter(filesOnly)
           , expectedFiles = glob.sync('test/expected/**/*').filter(filesOnly)
 
+        expect(expectedFiles.length).to.equal(generatedFiles.length)
+
         _.times(expectedFiles.length, function(i) {
           // remove trailing whitespace before comparing
           var expected = read(expectedFiles[i]).replace(/\s*\n/g, '\n')

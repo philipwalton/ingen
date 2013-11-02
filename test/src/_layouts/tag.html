@@ -1,0 +1,15 @@
+<!--
+{
+  "layout": "default"
+}
+-->
+
+{{ page.title }}
+
+<ul>
+  {{#eachArticle }}
+    {{#ifArticleHasTag ../page.tag}}
+      <li>{{ title }}</li>
+    {{/ifArticleHasTag}}
+  {{/eachArticle }}
+</ul>

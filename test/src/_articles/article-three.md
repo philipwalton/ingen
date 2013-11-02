@@ -2,7 +2,8 @@
 {
   "layout": "article",
   "title": "Article Three",
-  "date": "2013-10-16"
+  "date": "2013-10-16",
+  "tags": ["foo", "buzz"]
 }
 -->
 
