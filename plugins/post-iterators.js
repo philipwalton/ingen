@@ -2,6 +2,7 @@
 var Handlebars = require('handlebars')
   , natural = require('natural')
   , inflector = new natural.NounInflector()
+  , _ = require('lodash')
 
 // local dependencies
 var site = require('../lib/site')
@@ -20,6 +21,16 @@ config.postTypes.forEach(function(type) {
       , posts = data[typePlural].slice()
       , sortBy
       , order
+
+    // filter posts by any passed taxonomies
+    _.each(options.hash, function(taxonomyValue, taxonomyType) {
+      var taxonomyTypePlural = inflector.pluralize(taxonomyType)
+      if (site._taxonomies[taxonomyTypePlural]) {
+        posts = _.filter(posts, function(post) {
+          return _.contains(post[taxonomyTypePlural], taxonomyValue)
+        })
+      }
+    })
 
     // if posts is empty, exit early with the inverse context
     if (!posts.length) return options.inverse(this)

@@ -7,9 +7,7 @@
 {{ page.title }}
 
 <ul>
-  {{#eachArticle }}
-    {{#ifArticleHasTag ../page.tag}}
-      <li>{{ title }}</li>
-    {{/ifArticleHasTag}}
+  {{#eachArticle tag=page.tag }}
+    <li>{{ title }}</li>
   {{/eachArticle }}
 </ul>
