@@ -4,8 +4,8 @@
     <title>InGen</title>
   </head>
   <body>
-    {{ include "header.html" }}
-    <main>{{{ content }}}</main>
-    {{ include "footer.html" }}
+    {{> header}}
+    <main>{{{content}}}</main>
+    {{> footer}}
   </body>
 </html>
