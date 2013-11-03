@@ -50,13 +50,19 @@ describe('Permalink', function() {
       expect(p.toString()).to.equal('/15/fizz/')
     })
 
+    it('can replace `:pagenum` with the page\'s page number', function() {
+      var p = new Permalink('page/:pagenum', {pagenum: 3})
+      expect(p.toString()).to.equal('/page/3/')
+    })
+
     it('can can handle multiple replacements', function() {
-      var p = new Permalink('path/to/:type/:year/:month/:day/:title', {
+      var p = new Permalink('path/to/:type/:year/:month/:day/:title/page/:pagenum', {
         title: 'This is the title',
         type: 'article',
-        date: '2013/09/15'
+        date: '2013/09/15',
+        pagenum: 2
       })
-      expect(p.toString()).to.equal('/path/to/articles/2013/09/15/this-is-the-title/')
+      expect(p.toString()).to.equal('/path/to/articles/2013/09/15/this-is-the-title/page/2/')
     })
 
     it('can can handle complex titles', function() {
@@ -64,6 +70,61 @@ describe('Permalink', function() {
         title: 'My title\'s got $pecial+characters~ in.it'
       })
       expect(p.toString()).to.equal('/my-titles-got-pecialcharacters~-in.it/')
+    })
+
+  })
+
+  describe('#append', function() {
+
+    it('can append directories to the permalink', function() {
+      var p = new Permalink('sub-directory/:title', {
+        title: 'Foo to the Bar',
+        date: '2013-06-13'
+      })
+      p.append('page/:pagenum')
+      expect(p._permalink).to.equal('/sub-directory/:title/page/:pagenum')
+    })
+
+    it('accounts for permalinks that end with a file instead of a director', function() {
+      var p = new Permalink('sub-directory/:title.html', {
+        title: 'Foo to the Bar',
+        date: '2013-06-13'
+      })
+      p.append('page/:pagenum')
+      expect(p._permalink).to.equal('/sub-directory/page/:pagenum/:title.html')
+    })
+
+  })
+
+  describe('#clone', function() {
+
+    it('returns a new instance with all the same properties', function() {
+      var original = new Permalink('sub-directory/:title', {
+        title: 'Foo to the Bar',
+        date: '2013-06-13',
+        pagenum: 2,
+        type: 'article'
+      })
+      var clone = original.clone()
+
+      expect(clone).not.to.equal(original)
+      expect(clone._title).to.equal(original._title)
+      expect(clone._type).to.equal(original._type)
+      expect(clone._pagenum).to.equal(original._pagenum)
+      expect(clone._date.format("YYYY-MM-DD")).to.equal(original._date.format("YYYY-MM-DD"))
+    })
+
+  })
+
+  describe('#replace', function() {
+
+    it('can do a regex replace on it\'s `_permalink` property', function() {
+      var p = new Permalink('sub-directory/:title', {
+        title: 'Foo to the Bar',
+        date: '2013-06-13'
+      })
+      p.replace(/r/g, "w")
+      expect(p._permalink).to.equal('/sub-diwectowy/:title/')
     })
 
   })
