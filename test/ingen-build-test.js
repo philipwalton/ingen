@@ -32,8 +32,8 @@ describe('ingen', function() {
         , child = spawn('ingen', ['build'], {cwd: 'test/src'})
 
       child.on('close', function() {
-        var generatedFiles = glob.sync('test/src/_site/**/*').filter(filesOnly)
-          , expectedFiles = glob.sync('test/expected/**/*').filter(filesOnly)
+        var generatedFiles = _.filter(glob.sync('test/src/_site/**/*'), filesOnly)
+          , expectedFiles = _.filter(glob.sync('test/expected/**/*'), filesOnly)
 
         expect(expectedFiles.length).to.equal(generatedFiles.length)
 

@@ -15,7 +15,7 @@ function capitalize(word) {
 }
 
 function camelize() {
-  return arguments[0] + [].slice.call(arguments, 1).map(capitalize).join('')
+  return arguments[0] + _.map(_.toArray(arguments).slice(1), capitalize).join('')
 }
 
 // Loop through each post type and taxonomy and create helpers
@@ -28,8 +28,8 @@ function camelize() {
 // - {{#ifPageHasAuthor <type>}}
 // - {{#ifPageHasTag <type>}}
 
-postTypes.forEach(function(type) {
-  taxonomies.forEach(function(taxonomy) {
+_.each(postTypes, function(type) {
+  _.each(taxonomies, function(taxonomy) {
     var taxonomyPlural = inflector.pluralize(taxonomy)
       , helperName = camelize('if', type, 'Has', taxonomy)
     Handlebars.registerHelper(helperName, function(value, options) {

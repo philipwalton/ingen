@@ -13,7 +13,7 @@ function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)
 }
 
-config.postTypes.forEach(function(type) {
+_.each(config.postTypes, function(type) {
 
   Handlebars.registerHelper('each' + capitalize(type), function(options) {
 
@@ -61,7 +61,7 @@ config.postTypes.forEach(function(type) {
     if (order.toLowerCase().indexOf('desc') === 0) posts.reverse()
 
     // render the result
-    return posts.map(function(context) {
+    return _.map(posts, function(context) {
       return options.fn(context)
     }).join('')
 
