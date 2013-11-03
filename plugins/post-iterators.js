@@ -60,6 +60,15 @@ _.each(config.postTypes, function(type) {
     // reverse the order for descending
     if (order.toLowerCase().indexOf('desc') === 0) posts.reverse()
 
+    // if we're paginating, alter the posts object for this page
+    if (this.page.pagination) {
+      debugger
+
+      var amount = this.page.pagination.amount
+      var page = this.page.pagination.page
+      posts = posts.slice(amount * (page - 1),  amount * page)
+    }
+
     // render the result
     return _.map(posts, function(context) {
       return options.fn(context)
