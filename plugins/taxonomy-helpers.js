@@ -7,8 +7,7 @@ var Handlebars = require('handlebars')
 // local dependencies
 var site = require('../lib/site')
   , postTypes = site.config.postTypes
-  , taxonomies = site.config.taxonomies
-
+  , taxonomyTypes = site.config.taxonomyTypes
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)
@@ -21,7 +20,7 @@ function camelize() {
 // Loop through each post type and taxonomy and create helpers
 // to aid in determining if a given post contains the given taxonomy
 // For example, given the post types: `article`, `page`
-// and the taxonomies: `tag`, `author`, the following helpers
+// and the taxonomyTypes: `tag`, `author`, the following helpers
 // will be generated:
 // - {{#ifArticleHasAuthor <type>}}
 // - {{#ifArticleHasTag <type>}}
@@ -29,11 +28,11 @@ function camelize() {
 // - {{#ifPageHasTag <type>}}
 
 _.each(postTypes, function(type) {
-  _.each(taxonomies, function(taxonomy) {
-    var taxonomyPlural = inflector.pluralize(taxonomy)
-      , helperName = camelize('if', type, 'Has', taxonomy)
+  _.each(taxonomyTypes, function(taxonomyType) {
+    var taxonomyTypePlural = inflector.pluralize(taxonomyType)
+      , helperName = camelize('if', type, 'Has', taxonomyType)
     Handlebars.registerHelper(helperName, function(value, options) {
-      return this[taxonomyPlural] && _.contains(this[taxonomyPlural], value)
+      return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
         ? options.fn(this)
         : options.inverse(this)
     })

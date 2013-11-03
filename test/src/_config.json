@@ -3,5 +3,5 @@
   "baseURL": "http://example.com",
   "permalink": ":type/:title",
   "postTypes": ["article", "page"],
-  "taxonomies": ["tag", "author"]
+  "taxonomyTypes": ["tag", "author"]
 }
