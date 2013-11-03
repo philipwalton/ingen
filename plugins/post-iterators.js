@@ -62,11 +62,9 @@ _.each(config.postTypes, function(type) {
 
     // if we're paginating, alter the posts object for this page
     if (this.page.pagination) {
-      debugger
-
-      var amount = this.page.pagination.amount
-      var page = this.page.pagination.page
-      posts = posts.slice(amount * (page - 1),  amount * page)
+      var limit = this.page.pagination.limit
+        , pagenum = this.page.pagination.pagenum
+      posts = posts.slice(limit * (pagenum - 1),  limit * pagenum)
     }
 
     // render the result
