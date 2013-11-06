@@ -6,6 +6,7 @@ var Handlebars = require('handlebars')
 
 // local dependencies
 var site = require('../lib/site')
+  , Query = require('../lib/query')
   , config = site.config
   , data = site.templateData
 
@@ -73,5 +74,18 @@ _.each(config.postTypes, function(type) {
     }).join('')
 
   });
+
+})
+
+
+Handlebars.registerHelper('query', function(options) {
+
+  var query = new Query(this.page.query)
+    , posts = query.posts
+
+  // render the result
+  return _.map(posts, function(post) {
+    return options.fn(post)
+  }).join('')
 
 })
