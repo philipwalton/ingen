@@ -79,9 +79,7 @@ _.each(config.postTypes, function(type) {
 
 
 Handlebars.registerHelper('query', function(options) {
-
-  var query = new Query(this.page.query)
-    , posts = query.posts
+  var posts = (new Query(this.page.query)).result
 
   // render the result
   return _.map(posts, function(post) {
