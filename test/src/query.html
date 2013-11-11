@@ -1,0 +1,20 @@
+<!--
+{
+  "layout": "default",
+  "title": "Iterators Test",
+  "query": {
+    "type": "article",
+    "tag": "foo"
+  }
+}
+-->
+
+<h2>Query Test</h2>
+<ol>
+  {{#query}}
+    <li>
+      <a href="{{ permalink }}">{{title}}</a><br>
+      on: {{date}}
+    </li>
+  {{/query}}
+</ol>
