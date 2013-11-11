@@ -79,10 +79,18 @@ _.each(config.postTypes, function(type) {
 
 
 Handlebars.registerHelper('query', function(options) {
-  var posts = (new Query(this.page.query)).result
+
+  var posts = []
+  _.each(site._posts, function(type) {
+    posts = posts.concat(type)
+  })
+
+  var query = new Query(this.page.query, posts)
+
+  debugger
 
   // render the result
-  return _.map(posts, function(post) {
+  return _.map(query.run(), function(post) {
     return options.fn(post)
   }).join('')
 
