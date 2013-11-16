@@ -23,6 +23,11 @@ site.on('beforeBuild', function() {
       }
       // add the taxonomy type and value to the page data
       obj[taxonomyType] = taxonomyValue
+
+      // add the taxonomy to the query params
+      obj.query = {}
+      obj.query[taxonomyType] = taxonomyValue
+
       new Page(obj)
     }
   })
