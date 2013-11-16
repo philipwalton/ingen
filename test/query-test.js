@@ -102,20 +102,46 @@ describe('Query', function() {
 
   })
 
+  describe('#limit', function() {
+
+    it('can limit posts by the specified limit amount', function() {
+      var q = new Query({
+        limit: 3
+      }, posts)
+      expect(q.run()).to.deep.equal([
+        posts[6],
+        posts[4],
+        posts[5]
+      ])
+    })
+
+    it('can paginate posts via the specified page and limit', function() {
+      var q = new Query({
+        limit: 3,
+        page: 2
+      }, posts)
+      expect(q.run()).to.deep.equal([
+        posts[7],
+        posts[3],
+        posts[2]
+      ])
+    })
+
+  })
+
   describe('#run', function() {
 
-    it('filters, sorts, and orders a query returning the matched posts', function() {
+    it('filters, sorts, orders, and limits a query returning the matched posts', function() {
       var q = new Query({
         type:'article',
         tag:'blue',
         author:'philip',
         sortBy:'date',
-        order:'asc'
+        order:'asc',
+        limit: 1,
+        page: 2
       }, posts)
-      expect(q.run()).to.deep.equal([
-        posts[7],
-        posts[5]
-      ])
+      expect(q.run()).to.deep.equal([posts[5]])
     })
 
   })
