@@ -1,0 +1,18 @@
+<!--
+{
+  "layout": "default",
+  "title": "Pagination Test",
+  "permalink": "pagination",
+  "query": {
+    "sortBy": "title",
+    "limit": 2
+  }
+}
+-->
+
+<h2>Pagination Test</h2>
+<ol>
+  {{#query}}
+    <li>{{title}}</li>
+  {{/query}}
+</ol>
