@@ -1,11 +1,15 @@
 <!--
 {
-  "layout": "default"
+  "layout": "default",
+  "query": {
+    "limit": 2,
+    "type": "article"
+  }
 }
 -->
 
 <ul>
-  {{#eachArticle tag=page.tag }}
-    <li>{{ title }}</li>
-  {{/eachArticle }}
+  {{#query}}
+    <li>{{title}}</li>
+  {{/query}}
 </ul>
