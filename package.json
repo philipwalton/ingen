@@ -28,8 +28,7 @@
   "devDependencies": {
     "mocha": "~1.13.0",
     "chai": "~1.8.1",
-    "shelljs": "~0.2.6",
-    "moment": "~2.3.1"
+    "shelljs": "~0.2.6"
   },
   "dependencies": {
     "commander": "~2.0.0",
@@ -45,6 +44,8 @@
     "yaml": "~0.2.3",
     "lodash": "~2.2.1",
     "handlebars": "~1.0.12",
-    "html-minifier": "~0.5.4"
+    "html-minifier": "~0.5.4",
+    "moment": "~2.3.1",
+    "gaze": "~0.4.3"
   }
 }

@@ -6,6 +6,8 @@ var fs = require('fs')
   , pkg = JSON.parse(fs.readFileSync(path.join(basePath, 'package.json')))
   , program = require('commander')
   , site = require("../lib/site")
+  , connect = require('connect')
+  , Gaze = require('gaze').Gaze
 
 program
   .version(pkg.version)
@@ -26,6 +28,24 @@ program
   .option('-p, --port [number]', 'port to listen on (defaults to 4000)', 4000)
   .action(function(){
     console.log('serve')
+
+    site.build()
+
+    var gaze = new Gaze('*.html');
+
+
+    // A file has been added/changed/deleted has occurred
+    gaze.on('all', function(event, filepath) {
+      site.build()
+    })
+
+    connect()
+      .use(connect.logger('dev'))
+      .use(connect.static('_site'))
+      .listen(1234)
+
+
+
   })
 
 program.on('source', function() {
