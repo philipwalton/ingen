@@ -47,6 +47,7 @@
     "html-minifier": "~0.5.4",
     "moment": "~2.3.1",
     "gaze": "~0.4.3",
-    "deep-watch": "*"
+    "deep-watch": "*",
+    "helper-moment": "*"
   }
 }
