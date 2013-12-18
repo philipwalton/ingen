@@ -5,7 +5,7 @@ var Handlebars = require('handlebars')
   , _ = require('lodash')
 
 // local dependencies
-var site = require('../lib/site')
+var site = require('../../lib/site')
   , postTypes = site.config.postTypes
   , taxonomyTypes = site.config.taxonomyTypes
 

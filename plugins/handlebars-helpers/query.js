@@ -5,8 +5,8 @@ var Handlebars = require('handlebars')
   , _ = require('lodash')
 
 // local dependencies
-var site = require('../lib/site')
-  , Query = require('../lib/query')
+var site = require('../../lib/site')
+  , Query = require('../../lib/query')
   , config = site.config
   , data = site.templateData
 
