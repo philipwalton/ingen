@@ -17,7 +17,7 @@ function capitalize(word) {
 function renderQuery(params, options) {
   var query = new Query(params)
   return _.map(query.run(), function(post) {
-    return options.fn(post.toTemplateObject())
+    return options.fn(post)
   }).join('')
 }
 
