@@ -16,45 +16,21 @@ InGen
   * handlers can be added to transform content or create additional content at any point in the build cycle
 
 
-Events
-======
+## Constraints
 
-* `ingen build`
-* Create a `site` object that will hold all the content data
-* Read config file
-* Scan directories and gather all custom content data
-* Scan directories for all static files (non-custom content) that need to be copied
-* Meta program helper functions to iterate through all of the content data
-* Transform all files that contain `bundled data` (aka YAML front matter)
-* Render transformed files to the destination directory
-* Copy static files to the destination directory
-* done!
+* Posts cannot access data from other posts (to avoid circularity)
+* Posts cannot use the query helper (again, to avoid circularity)
+* Posts cannot paginate
+* Posts cannot access data from up the layout chain (maybe in a future version)
+* Posts can only access data from their header data as well as site config data
+
+* Pages can access data from any number of posts
+* Pages can use the query helper
+* Pages can paginate
+* Pages have access to header data all the way up the layout chain
 
 
-Objects
-=======
-
-* Site (has many Files)
-* File (belongs to Site)
-* Transformer
-* Permalink (date stuff)
-
-## File
-
-* files with JSON data at the beginning are always transformed
-* files matching a pattern may be transformed (e.g. *.css w/ autoprefixer)
-* all other files are simply copied
-
-## Transformer
-
-* Used to convert a file from one format to another
-  * matches (detect matching extension)
-  * outputExt (define an output extension)
-  * transform (the logic that converts the file)
-* Used to transform the contents of a file (like autoprefix the css)
-
-Handlebars Helpers
-==================
+## Handlebars Helpers
 
 * http://elving.github.io/swag/
 * http://assemble.io/helpers/
