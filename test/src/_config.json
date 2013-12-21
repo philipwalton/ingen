@@ -2,6 +2,6 @@
   "title": "InGen",
   "baseURL": "http://example.com",
   "permalink": ":type/:title",
-  "postTypes": ["article", "page"],
+  "postTypes": ["article"],
   "taxonomyTypes": ["tag", "author"]
 }
