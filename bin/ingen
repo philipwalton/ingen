@@ -35,7 +35,7 @@ program
     var options = {exclude: ['_site', 'node_modules']}
     var dw = new DeepWatch('.', options, function(event, filename) {
       console.log(event, filename)
-      site.build()
+      site.rebuild()
     })
 
     dw.start()
