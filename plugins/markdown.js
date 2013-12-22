@@ -10,7 +10,7 @@ marked.setOptions({
   }
 })
 
-site.on('transformFile', function(page) {
+site.on('afterRenderContent', function(page) {
   if (page.extension == '.md') {
     page.permalink = page.permalink.replace(/\.md$/, '.html')
     page.content = marked(page.content)
