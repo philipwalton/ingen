@@ -42,12 +42,13 @@
     "q": "~0.9.7",
     "natural": "~0.1.22",
     "yaml": "~0.2.3",
-    "lodash": "~2.2.1",
     "handlebars": "~1.0.12",
     "html-minifier": "~0.5.4",
     "moment": "~2.3.1",
     "gaze": "~0.4.3",
     "deep-watch": "*",
-    "helper-moment": "*"
+    "helper-moment": "*",
+    "lodash-node": "*",
+    "lodash": "*"
   }
 }

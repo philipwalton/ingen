@@ -1,6 +1,7 @@
 // external dependencies
 var Handlebars = require('handlebars')
-var defaultLimit = require('../../lib/site').config.excerptLength
+var config = require('../../lib/config')
+var defaultLimit = config.excerptLength
 
 Handlebars.registerHelper('truncateWords', function(content, options) {
   var wordCount = options.hash.limit || defaultLimit

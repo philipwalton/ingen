@@ -7,7 +7,8 @@ var Handlebars = require('handlebars')
 // local dependencies
 var site = require('../../lib/site')
   , Query = require('../../lib/query')
-  , config = site.config
+  , Post = require('../../lib/post')
+  , config = require('../../lib/config')
   , data = site.templateData
 
 function capitalize(word) {
@@ -15,7 +16,7 @@ function capitalize(word) {
 }
 
 function renderQuery(params, options) {
-  var query = new Query(params)
+  var query = new Query(params, Post.all())
   return _.map(query.run(), function(post) {
     return options.fn(post)
   }).join('')

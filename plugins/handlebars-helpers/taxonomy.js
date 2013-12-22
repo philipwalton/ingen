@@ -5,9 +5,9 @@ var Handlebars = require('handlebars')
   , _ = require('lodash')
 
 // local dependencies
-var site = require('../../lib/site')
-  , postTypes = site.config.postTypes
-  , taxonomyTypes = site.config.taxonomyTypes
+var config = require('../../lib/config')
+  , postTypes = config.postTypes
+  , taxonomyTypes = config.taxonomyTypes
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)
