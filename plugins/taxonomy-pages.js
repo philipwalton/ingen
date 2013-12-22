@@ -1,5 +1,6 @@
 var fs = require('fs')
   , site = require('../lib/site')
+  , events = require('../lib/events')
   , Page = require('../lib/page')
   , File = require('../lib/file')
   , natural = require('natural')
@@ -11,7 +12,7 @@ var layoutExists = _.memoize(function(layout) {
   return fs.existsSync('_layouts/' + layout + '.html')
 })
 
-site.on('beforeBuild', function() {
+events.on('beforeBuild', function() {
 
   site.eachTaxonomy(function(taxonomyValue, taxonomyType, taxonomyTypePlural) {
     if (layoutExists(taxonomyType.toLowerCase())) {

@@ -1,6 +1,7 @@
 var marked = require('marked')
   , hljs = require("highlight.js")
-  , site = require('../lib/site')
+  , events = require('../lib/events')
+
 
 marked.setOptions({
   highlight: function(code, lang) {
@@ -10,7 +11,7 @@ marked.setOptions({
   }
 })
 
-site.on('afterRenderContent', function(page) {
+events.on('afterRenderContent', function(page) {
   if (page.extension == '.md') {
     page.permalink = page.permalink.replace(/\.md$/, '.html')
     page.content = marked(page.content)

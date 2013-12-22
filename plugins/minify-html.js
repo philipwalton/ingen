@@ -1,4 +1,4 @@
-var site = require('../lib/site')
+var events = require('../lib/events')
   , minify = require('html-minifier').minify
 
 // http://perfectionkills.com/experimenting-with-html-minifier/#options
@@ -19,6 +19,6 @@ var options = {
   removeStyleLinkTypeAttributes: true
 }
 
-site.on('beforeWrite', function(page) {
+events.on('beforeWrite', function(page) {
   // page.content = minify(page.content, options)
 })
