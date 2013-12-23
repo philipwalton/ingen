@@ -1,5 +1,5 @@
 var fs = require('fs')
-  , Handlebars = require('handlebars')
+var Handlebars = require('handlebars')
 
 Handlebars.registerHelper('debug', function(obj) {
   debugger

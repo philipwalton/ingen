@@ -1,13 +1,13 @@
 // external dependencies
 var Handlebars = require('handlebars')
-  , natural = require('natural')
-  , inflector = new natural.NounInflector()
-  , _ = require('lodash')
+var natural = require('natural')
+var inflector = new natural.NounInflector()
+var _ = require('lodash')
 
 // local dependencies
 var config = require('../../lib/config')
-  , postTypes = config.postTypes
-  , taxonomyTypes = config.taxonomyTypes
+var postTypes = config.postTypes
+var taxonomyTypes = config.taxonomyTypes
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)
@@ -30,7 +30,7 @@ function camelize() {
 _.each(postTypes, function(type) {
   _.each(taxonomyTypes, function(taxonomyType) {
     var taxonomyTypePlural = inflector.pluralize(taxonomyType)
-      , helperName = camelize('if', type, 'Has', taxonomyType)
+    var helperName = camelize('if', type, 'Has', taxonomyType)
     Handlebars.registerHelper(helperName, function(value, options) {
       return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
         ? options.fn(this)

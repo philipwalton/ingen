@@ -1,8 +1,8 @@
 var fs = require('fs-extra')
-  , expect = require('chai').expect
-  , Query = require('../lib/query')
-  , posts = fs.readJSONSync('test/fixtures/posts.json')
-  , _ = require('lodash')
+var expect = require('chai').expect
+var Query = require('../lib/query')
+var posts = fs.readJSONSync('test/fixtures/posts.json')
+var _ = require('lodash')
 
 describe('Query', function() {
 

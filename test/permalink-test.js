@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , Permalink = require('../lib/permalink')
+var Permalink = require('../lib/permalink')
 
 describe('Permalink', function() {
 

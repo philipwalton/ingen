@@ -1,15 +1,15 @@
 // external dependencies
 var Handlebars = require('handlebars')
-  , natural = require('natural')
-  , inflector = new natural.NounInflector()
-  , _ = require('lodash')
+var natural = require('natural')
+var inflector = new natural.NounInflector()
+var _ = require('lodash')
 
 // local dependencies
 var site = require('../../lib/site')
-  , Query = require('../../lib/query')
-  , Post = require('../../lib/post')
-  , config = require('../../lib/config')
-  , data = site.templateData
+var Query = require('../../lib/query')
+var Post = require('../../lib/post')
+var config = require('../../lib/config')
+var data = site.templateData
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)

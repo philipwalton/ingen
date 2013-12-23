@@ -1,6 +1,6 @@
 var marked = require('marked')
-  , hljs = require("highlight.js")
-  , events = require('../lib/events')
+var hljs = require("highlight.js")
+var events = require('../lib/events')
 
 
 marked.setOptions({

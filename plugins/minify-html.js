@@ -1,5 +1,5 @@
 var events = require('../lib/events')
-  , minify = require('html-minifier').minify
+var minify = require('html-minifier').minify
 
 // http://perfectionkills.com/experimenting-with-html-minifier/#options
 var options = {

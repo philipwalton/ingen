@@ -1,11 +1,11 @@
 var fs = require('fs')
-  , site = require('../lib/site')
-  , events = require('../lib/events')
-  , Page = require('../lib/page')
-  , File = require('../lib/file')
-  , natural = require('natural')
-  , inflector = new natural.NounInflector()
-  , _ = require('lodash')
+var site = require('../lib/site')
+var events = require('../lib/events')
+var Page = require('../lib/page')
+var File = require('../lib/file')
+var natural = require('natural')
+var inflector = new natural.NounInflector()
+var _ = require('lodash')
 
 
 var layoutExists = _.memoize(function(layout) {

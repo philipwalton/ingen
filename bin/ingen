@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 var fs = require('fs')
-  , path = require('path')
-  , basePath = path.normalize(__dirname + path.sep + '..')
-  , pkg = JSON.parse(fs.readFileSync(path.join(basePath, 'package.json')))
-  , program = require('commander')
-  , site = require("../lib/site")
-  , connect = require('connect')
-  , Gaze = require('gaze').Gaze
+var path = require('path')
+var basePath = path.normalize(__dirname + path.sep + '..')
+var pkg = JSON.parse(fs.readFileSync(path.join(basePath, 'package.json')))
+var program = require('commander')
+var site = require("../lib/site")
+var connect = require('connect')
+var Gaze = require('gaze').Gaze
 
 program
   .version(pkg.version)
