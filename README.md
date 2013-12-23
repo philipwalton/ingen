@@ -21,14 +21,12 @@ InGen
 * Posts cannot access data from other posts (to avoid circularity)
 * Posts cannot use the query helper (again, to avoid circularity)
 * Posts cannot paginate
-* Posts cannot access data from up the layout chain (maybe in a future version)
-* Posts can only access data from their header data as well as site config data
+* Posts can have taxonomies
 
+* Pages cannot have taxonomies
 * Pages can access data from any number of posts
 * Pages can use the query helper
 * Pages can paginate
-* Pages have access to header data all the way up the layout chain
-
 
 ## Handlebars Helpers
 
