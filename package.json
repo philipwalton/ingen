@@ -49,6 +49,7 @@
     "deep-watch": "*",
     "helper-moment": "*",
     "lodash-node": "*",
-    "lodash": "*"
+    "lodash": "*",
+    "swag": "~0.3.1"
   }
 }

@@ -24,8 +24,8 @@ function camelize() {
 // will be generated:
 // - {{#ifArticleHasAuthor <type>}}
 // - {{#ifArticleHasTag <type>}}
-// - {{#ifPageHasAuthor <type>}}
-// - {{#ifPageHasTag <type>}}
+// - {{#ifPostHasAuthor <type>}}
+// - {{#ifPostHasTag <type>}}
 
 _.each(postTypes, function(type) {
   _.each(taxonomyTypes, function(taxonomyType) {
