@@ -13,20 +13,20 @@ var layoutExists = function(layout) {
 
 events.on('beforeBuild', function() {
 
-  Taxonomy.each(function(taxonomyValue, taxonomyType, taxonomyTypePlural) {
-    if (layoutExists(taxonomyType.toLowerCase())) {
+  Taxonomy.each(function(taxonomy) {
+    if (layoutExists(taxonomy.type.toLowerCase())) {
       var obj = {
         content: '',
-        title: taxonomyValue,
-        permalink: (taxonomyTypePlural + '/' + taxonomyValue).toLowerCase(),
-        layout: taxonomyType.toLowerCase()
+        title: taxonomy.value,
+        permalink: (taxonomy.typePlural + '/' + taxonomy.value).toLowerCase(),
+        layout: taxonomy.type.toLowerCase()
       }
       // add the taxonomy type and value to the page data
-      obj[taxonomyType] = taxonomyValue
+      obj[taxonomy.type] = taxonomy.value
 
       // add the taxonomy to the query params
       obj.query = {}
-      obj.query[taxonomyType] = taxonomyValue
+      obj.query[taxonomy.type] = taxonomy.value
 
       new Page(obj)
     }
