@@ -33,8 +33,7 @@
   "dependencies": {
     "commander": "~2.0.0",
     "connect": "~2.9.0",
-    "marked": "~0.2.9",
-    "highlight.js": "~7.3.0",
+    "marked": "*",
     "glob": "~3.2.6",
     "minimatch": "~0.2.12",
     "fs-extra": "~0.6.4",
