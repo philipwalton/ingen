@@ -8,6 +8,7 @@ var _ = require('lodash')
 var config = require('../../lib/config')
 var postTypes = config.postTypes
 var taxonomyTypes = config.taxonomyTypes
+var Taxonomy = require('../../lib/taxonomy')
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)
@@ -17,24 +18,57 @@ function camelize() {
   return arguments[0] + _.map(_.toArray(arguments).slice(1), capitalize).join('')
 }
 
-// Loop through each post type and taxonomy and create helpers
-// to aid in determining if a given post contains the given taxonomy
-// For example, given the post types: `article`, `page`
-// and the taxonomyTypes: `tag`, `author`, the following helpers
-// will be generated:
-// - {{#ifArticleHasAuthor <type>}}
-// - {{#ifArticleHasTag <type>}}
-// - {{#ifPostHasAuthor <type>}}
-// - {{#ifPostHasTag <type>}}
-
-_.each(postTypes, function(type) {
+_.each(postTypes, function(postType) {
   _.each(taxonomyTypes, function(taxonomyType) {
     var taxonomyTypePlural = inflector.pluralize(taxonomyType)
-    var helperName = camelize('if', type, 'Has', taxonomyType)
-    Handlebars.registerHelper(helperName, function(value, options) {
-      return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
-        ? options.fn(this)
-        : options.inverse(this)
-    })
+    var postTypePlural = inflector.pluralize(postType)
+    var helperName = camelize('if', postType, 'Has', taxonomyType)
+
+    // See if a the post context contains the given taxonomy
+    //
+    // Given the post type `article` and the taxonomy types `tag` and `author`,
+    // the following helpers will be generated:
+    // - {{ifArticleHasAuthor <value>}}
+    // - {{ifArticleHasTag <value>}}
+    Handlebars.registerHelper(
+      camelize('if', postType, 'Has', taxonomyType),
+      function(value, options) {
+        return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
+          ? options.fn(this)
+          : options.inverse(this)
+      }
+    )
+
+    // Get the post count for a given taxonomy
+    //
+    // Given the post type `article` and the taxonomy types `tag` and `author`,
+    // the following helpers will be generated:
+    // - {{countArticlesWithAuthor <value>}}
+    // - {{countArticlesWithTag <value>}}
+    Handlebars.registerHelper(
+      camelize('count', postTypePlural, 'With', taxonomyType),
+      function(value, options) {
+
+        return Taxonomy.all()[taxonomyType][value].posts.length
+      }
+    )
+
+    // Iterate over each taxonomy value of a given type
+    //
+    // Given the taxonomy types `tag` and `author`,
+    // the following helpers will be generated:
+    // - {{#eachAuthor}}
+    // - {{#eachTag}}
+    Handlebars.registerHelper(
+      camelize('each', taxonomyType),
+      function(options) {
+        var taxonomyValues = Object.keys(Taxonomy.all()[taxonomyType])
+        return _.map(taxonomyValues.sort(), function(value) {
+          return options.fn(value)
+        }).join('')
+      }
+    )
   })
 })
+
+

@@ -1,20 +1,19 @@
 var fs = require('fs')
-var site = require('../lib/site')
-var events = require('../lib/events')
-var Page = require('../lib/page')
-var File = require('../lib/file')
 var natural = require('natural')
 var inflector = new natural.NounInflector()
 var _ = require('lodash')
 
+var events = require('../lib/events')
+var Page = require('../lib/page')
+var Taxonomy = require('../lib/taxonomy')
 
-var layoutExists = _.memoize(function(layout) {
+var layoutExists = function(layout) {
   return fs.existsSync('_layouts/' + layout + '.html')
-})
+}
 
 events.on('beforeBuild', function() {
 
-  site.eachTaxonomy(function(taxonomyValue, taxonomyType, taxonomyTypePlural) {
+  Taxonomy.each(function(taxonomyValue, taxonomyType, taxonomyTypePlural) {
     if (layoutExists(taxonomyType.toLowerCase())) {
       var obj = {
         content: '',
