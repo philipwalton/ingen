@@ -28,7 +28,7 @@ events.on('beforeBuild', function() {
       obj.query = {}
       obj.query[taxonomy.type] = taxonomy.value
 
-      new Page(obj)
+      taxonomy.page = new Page(obj)
     }
   })
 

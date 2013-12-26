@@ -53,7 +53,7 @@ _.each(postTypes, function(postType) {
       }
     )
 
-    // Iterate over each taxonomy value of a given type
+    // Iterate over each taxonomy of a given type
     //
     // Given the taxonomy types `tag` and `author`,
     // the following helpers will be generated:
@@ -62,9 +62,9 @@ _.each(postTypes, function(postType) {
     Handlebars.registerHelper(
       camelize('each', taxonomyType),
       function(options) {
-        var taxonomyValues = Object.keys(Taxonomy.all()[taxonomyType])
-        return _.map(taxonomyValues.sort(), function(value) {
-          return options.fn(value)
+        var taxonomyValues = Taxonomy.all()[taxonomyType]
+        return _.map(_.keys(taxonomyValues).sort(), function(value) {
+          return options.fn(taxonomyValues[value])
         }).join('')
       }
     )
