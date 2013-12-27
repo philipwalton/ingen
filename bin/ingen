@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 
-var fs = require('fs')
+var fs = require('fs-extra')
 var path = require('path')
-var basePath = path.normalize(__dirname + path.sep + '..')
-var pkg = JSON.parse(fs.readFileSync(path.join(basePath, 'package.json')))
 var program = require('commander')
-var site = require("../lib/site")
 var connect = require('connect')
-var Gaze = require('gaze').Gaze
+
+var basePath = path.normalize(__dirname + path.sep + '..')
+var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
+var site = require("../lib/site")
 
 program
   .version(pkg.version)
-  .option('-s, --source [dir]', 'source directory (defaults to ./)', './')
   .option('-d, --destination [dir]', 'destination directory (defaults to ./_site)', './_site')
+  .option('-e, --environment [value]', 'a global environment varible (defaults to "prod")', 'prod')
+  .option('-s, --source [dir]', 'source directory (defaults to ./)', './')
+
 
 program
   .command('build')
@@ -32,7 +34,7 @@ program
     site.build()
 
     var DeepWatch = require('deep-watch')
-    var options = {exclude: ['_site', 'node_modules']}
+    var options = {exclude: ['_site', 'node_modules', '_sass']}
     var dw = new DeepWatch('.', options, function(event, filename) {
       console.log(event, filename)
       site.rebuild()

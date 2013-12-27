@@ -44,7 +44,6 @@
     "handlebars": ">=1.2.0",
     "html-minifier": "~0.5.4",
     "moment": "~2.3.1",
-    "gaze": "~0.4.3",
     "deep-watch": "*",
     "helper-moment": "*",
     "lodash-node": "*",
