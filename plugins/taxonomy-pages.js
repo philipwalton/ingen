@@ -1,7 +1,7 @@
 var fs = require('fs')
 var natural = require('natural')
 var inflector = new natural.NounInflector()
-var _ = require('lodash')
+var _ = require('lodash-node/modern')
 
 var events = require('../lib/events')
 var Page = require('../lib/page')

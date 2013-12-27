@@ -2,7 +2,7 @@
 var Handlebars = require('handlebars')
 var natural = require('natural')
 var inflector = new natural.NounInflector()
-var _ = require('lodash')
+var _ = require('lodash-node/modern')
 
 // local dependencies
 var config = require('../../lib/config')

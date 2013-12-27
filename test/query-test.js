@@ -2,7 +2,7 @@ var fs = require('fs-extra')
 var expect = require('chai').expect
 var Query = require('../lib/query')
 var posts = fs.readJSONSync('test/fixtures/posts.json')
-var _ = require('lodash')
+var _ = require('lodash-node/modern')
 
 describe('Query', function() {
 

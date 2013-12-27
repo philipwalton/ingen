@@ -3,7 +3,7 @@ var path = require('path')
 var expect = require('chai').expect
 var shell = require('shelljs')
 var glob = require('glob')
-var _ = require('lodash')
+var _ = require('lodash-node/modern')
 
 function read(filename) {
   return fs.readFileSync(filename, 'utf8')
