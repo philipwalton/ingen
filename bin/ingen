@@ -3,58 +3,43 @@
 var fs = require('fs-extra')
 var path = require('path')
 var program = require('commander')
-var connect = require('connect')
 
 var basePath = path.normalize(__dirname + path.sep + '..')
 var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
 var site = require("../lib/site")
 
+// to store all set options
+var options = {}
+
 program
   .version(pkg.version)
-  .option('-d, --destination [dir]', 'destination directory (defaults to ./_site)', './_site')
-  .option('-e, --environment [value]', 'a global environment varible (defaults to "prod")', 'prod')
-  .option('-s, --source [dir]', 'source directory (defaults to ./)', './')
-
+  .usage('[command] [options]')
+  .option('-d, --destination <dir>', 'set the destination directory (defaults to ./_site)', './_site')
+  .option('-e, --environment <value>', 'set the environment varible (defaults to "prod")', 'prod')
+  .option('-p, --port <number>', 'set the port to listen on (defaults to 4000)', 4000)
+  .option('-s, --source <dir>', 'set the source directory (defaults to ./)', './')
+  // .option('-w, --watch', 'watch for change and rebuild the site')
 
 program
   .command('build')
   .description('Build the site')
-  .action(function(p){
-    console.log('building...')
-    site.build()
+  .action(function() {
+    site.build(options)
   })
 
 program
   .command('serve')
   .description('Serve the site locally')
-  .option('-p, --port [number]', 'port to listen on (defaults to 4000)', 4000)
-  .action(function(){
-    console.log('serve')
-
-    site.build()
-
-    var DeepWatch = require('deep-watch')
-    var options = {exclude: ['_site', 'node_modules', '_sass']}
-    var dw = new DeepWatch('.', options, function(event, filename) {
-      console.log(event, filename)
-      site.rebuild()
-    })
-
-    dw.start()
-
-    connect()
-      .use(connect.logger('dev'))
-      .use(connect.static('_site'))
-      .listen(1234)
-
+  .action(function() {
+    site.serve(options)
   })
 
-program.on('source', function() {
-  console.log("source option set...")
-})
-
-program.on('destination', function() {
-  console.log("destination option set...")
+// list for all options and add them to the options hash
+program.options.forEach(function(option) {
+  var option = option.long.slice(2)
+  program.on(option, function(value) {
+    options[option] = value
+  });
 })
 
 program.parse(process.argv)
