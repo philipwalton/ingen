@@ -14,11 +14,11 @@ var options = {}
 program
   .version(pkg.version)
   .usage('[command] [options]')
-  .option('-d, --destination <dir>', 'set the destination directory (defaults to ./_site)', './_site')
-  .option('-e, --environment <value>', 'set the environment varible (defaults to "prod")', 'prod')
+  .option('-s, --source <dir>', 'set the source directory (defaults to "./)', './')
+  .option('-d, --destination <dir>', 'set the destination directory (defaults to "./_site")', './_site')
+  .option('-e, --env <value>', 'set the environment (defaults to "production")', 'production')
   .option('-p, --port <number>', 'set the port to listen on (defaults to 4000)', 4000)
-  .option('-s, --source <dir>', 'set the source directory (defaults to ./)', './')
-  // .option('-w, --watch', 'watch for change and rebuild the site')
+  .option('-w, --watch', 'watch for change and rebuild the site')
 
 program
   .command('build')
@@ -38,7 +38,9 @@ program
 program.options.forEach(function(option) {
   var option = option.long.slice(2)
   program.on(option, function(value) {
-    options[option] = value
+    // options with no value are assumed to be boolean
+    // and if they're set they're assumed to be true
+    options[option] = value || true
   });
 })
 
