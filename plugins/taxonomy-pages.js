@@ -3,12 +3,13 @@ var natural = require('natural')
 var inflector = new natural.NounInflector()
 var _ = require('lodash-node/modern')
 
+var config = require('../lib/config')
 var events = require('../lib/events')
 var Page = require('../lib/page')
 var Taxonomy = require('../lib/taxonomy')
 
 var layoutExists = function(layout) {
-  return fs.existsSync('_layouts/' + layout + '.html')
+  return fs.existsSync(config.layoutsDirectory + '/' + layout + '.html')
 }
 
 events.on('beforeBuild', function() {
