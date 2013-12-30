@@ -6,7 +6,8 @@ var program = require('commander')
 
 var basePath = path.normalize(__dirname + path.sep + '..')
 var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
-var site = require("../lib/site")
+var site = require('../lib/site')
+var config = require('../lib/config')
 
 // to store all set options
 var options = {}
@@ -24,14 +25,16 @@ program
   .command('build')
   .description('Build the site')
   .action(function() {
-    site.build(options)
+    config.init(options)
+    site.build()
   })
 
 program
   .command('serve')
   .description('Serve the site locally')
   .action(function() {
-    site.serve(options)
+    config.init(options)
+    site.serve()
   })
 
 // list for all options and add them to the options hash
