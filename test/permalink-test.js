@@ -27,6 +27,11 @@ describe('Permalink', function() {
       expect(p.toString()).to.equal('/foo-to-the-bar/')
     })
 
+    it('can replace `:filename` with the filename excluding the directory path or extension', function() {
+      var p = new Permalink(':filename', {filename: '_posts/foo-to-the-bar.html'})
+      expect(p.toString()).to.equal('/foo-to-the-bar/')
+    })
+
     it('can replace `:type` with the plural form of the post\'s type', function() {
       var p = new Permalink(':type/:title', {
         title: 'Foo to the Bar',
@@ -56,13 +61,14 @@ describe('Permalink', function() {
     })
 
     it('can can handle multiple replacements', function() {
-      var p = new Permalink('path/to/:type/:year/:month/:day/:title/page/:pagenum', {
+      var p = new Permalink('path/to/:type/:year/:month/:day/:title/:filename/page/:pagenum', {
         title: 'This is the title',
+        filename: '_posts/my-file.html',
         type: 'article',
         date: '2013/09/15',
         pagenum: 2
       })
-      expect(p.toString()).to.equal('/path/to/articles/2013/09/15/this-is-the-title/page/2/')
+      expect(p.toString()).to.equal('/path/to/articles/2013/09/15/this-is-the-title/my-file/page/2/')
     })
 
     it('can can handle complex titles', function() {
@@ -82,7 +88,7 @@ describe('Permalink', function() {
         date: '2013-06-13'
       })
       p.append('page/:pagenum')
-      expect(p._permalink).to.equal('/sub-directory/:title/page/:pagenum')
+      expect(p.permalink).to.equal('/sub-directory/:title/page/:pagenum')
     })
 
     it('accounts for permalinks that end with a file instead of a director', function() {
@@ -91,7 +97,7 @@ describe('Permalink', function() {
         date: '2013-06-13'
       })
       p.append('page/:pagenum')
-      expect(p._permalink).to.equal('/sub-directory/page/:pagenum/:title.html')
+      expect(p.permalink).to.equal('/sub-directory/page/:pagenum/:title.html')
     })
 
   })
@@ -108,10 +114,10 @@ describe('Permalink', function() {
       var clone = original.clone()
 
       expect(clone).not.to.equal(original)
-      expect(clone._title).to.equal(original._title)
-      expect(clone._type).to.equal(original._type)
-      expect(clone._pagenum).to.equal(original._pagenum)
-      expect(clone._date.format("YYYY-MM-DD")).to.equal(original._date.format("YYYY-MM-DD"))
+      expect(clone.title).to.equal(original.title)
+      expect(clone.type).to.equal(original.type)
+      expect(clone.pagenum).to.equal(original.pagenum)
+      expect(clone.date.format('YYYY-MM-DD')).to.equal(original.date.format('YYYY-MM-DD'))
     })
 
   })
@@ -123,8 +129,8 @@ describe('Permalink', function() {
         title: 'Foo to the Bar',
         date: '2013-06-13'
       })
-      p.replace(/r/g, "w")
-      expect(p._permalink).to.equal('/sub-diwectowy/:title/')
+      p.replace(/r/g, 'w')
+      expect(p.permalink).to.equal('/sub-diwectowy/:title/')
     })
 
   })
