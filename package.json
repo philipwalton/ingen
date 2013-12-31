@@ -42,7 +42,6 @@
     "natural": "~0.1.22",
     "yaml": "~0.2.3",
     "handlebars": ">=1.2.0",
-    "html-minifier": "~0.5.4",
     "moment": "~2.3.1",
     "deep-watch": "*",
     "helper-moment": "*",
