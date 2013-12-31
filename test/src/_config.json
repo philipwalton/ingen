@@ -1,7 +1,12 @@
 {
   "title": "InGen",
   "baseURL": "http://example.com",
-  "permalink": ":type/:title",
+
+  "includeFiles": [".htaccess"],
+
   "postTypes": ["article"],
+
+  "permalink": ":type/:title",
+
   "taxonomyTypes": ["tag", "author"]
 }

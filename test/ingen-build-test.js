@@ -1,4 +1,4 @@
-var fs = require('fs')
+var fs = require('fs-extra')
 var path = require('path')
 var expect = require('chai').expect
 var shell = require('shelljs')
@@ -14,7 +14,13 @@ function fixture(name) {
 }
 
 function clean() {
-  shell.rm('-rf', 'test/src/_site');
+  // clear the generated site directory
+  shell.rm('-rf', 'test/src/_site')
+
+  // remove any .DS_Store files from the expected directory
+  _.each(glob.sync('test/expected/**/.DS_Store'), function(file) {
+    fs.removeSync(file)
+  })
 }
 
 function filesOnly(file) {
@@ -24,6 +30,7 @@ function filesOnly(file) {
 describe('ingen', function() {
 
   beforeEach(clean)
+
   // after(clean)
 
   describe('build', function() {
@@ -32,8 +39,8 @@ describe('ingen', function() {
       var child = spawn('ingen', ['build'], {cwd: 'test/src'})
 
       child.on('close', function() {
-        var generatedFiles = _.filter(glob.sync('test/src/_site/**/*'), filesOnly)
-        var expectedFiles = _.filter(glob.sync('test/expected/**/*'), filesOnly)
+        var generatedFiles = _.filter(glob.sync('test/src/_site/**/*', {dot:true}), filesOnly)
+        var expectedFiles = _.filter(glob.sync('test/expected/**/*',{dot:true}), filesOnly)
 
         expect(expectedFiles.length).to.equal(generatedFiles.length)
 
