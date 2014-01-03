@@ -3,7 +3,7 @@
     "layout": "default",
     "title": "First Page",
     "type": "page",
-    "date": "2013-01-01",
+    "date": "2013-01-01T12:34:56-08:00",
     "tags": [
       "red",
       "green"
@@ -14,7 +14,7 @@
     "layout": "default",
     "title": "Second Page",
     "type": "page",
-    "date": "2013-01-02",
+    "date": "2013-01-02T12:34:56-08:00",
     "tags": [
       "red",
       "blue"
@@ -25,7 +25,7 @@
     "layout": "default",
     "title": "Third Page",
     "type": "page",
-    "date": "2013-01-03",
+    "date": "2013-01-03T12:34:56-08:00",
     "tags": [
       "green",
       "blue"
@@ -36,7 +36,7 @@
     "layout": "default",
     "title": "Forth Page",
     "type": "page",
-    "date": "2013-01-04",
+    "date": "2013-01-04T12:34:56-08:00",
     "tags": [
       "green",
       "blue"
@@ -47,7 +47,7 @@
     "layout": "default",
     "title": "First Article",
     "type": "article",
-    "date": "2013-02-14",
+    "date": "2013-02-14T12:34:56-08:00",
     "tags": [
       "red",
       "green"
@@ -62,7 +62,7 @@
     "layout": "default",
     "title": "Second Article",
     "type": "article",
-    "date": "2013-02-07",
+    "date": "2013-02-07T12:34:56-08:00",
     "tags": [
       "red",
       "blue"
@@ -76,7 +76,7 @@
     "layout": "default",
     "title": "Third Article",
     "type": "article",
-    "date": "2013-02-23",
+    "date": "2013-02-23T12:34:56-08:00",
     "tags": [
       "green",
       "blue"
@@ -90,7 +90,7 @@
     "layout": "default",
     "title": "Forth Article",
     "type": "article",
-    "date": "2013-02-04",
+    "date": "2013-02-04T12:34:56-08:00",
     "tags": [
       "green",
       "blue"

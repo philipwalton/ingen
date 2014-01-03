@@ -1,6 +1,9 @@
 var expect = require('chai').expect
 var Permalink = require('../lib/permalink')
 
+// init config with the default options
+var config = require('../lib/config').init({})
+
 describe('Permalink', function() {
 
   describe('#toString', function() {
@@ -41,17 +44,17 @@ describe('Permalink', function() {
     })
 
     it('can replace `:year` with the year of the post\'s publication date', function() {
-      var p = new Permalink(':year/foo', {date: '2013/09/15'})
+      var p = new Permalink(':year/foo', {date: '2013-09-15T12:34:56-08:00'})
       expect(p.toString()).to.equal('/2013/foo/')
     })
 
     it('can replace `:month` with the month of the post\'s publication date', function() {
-      var p = new Permalink(':month/bar', {date: '2013/09/15'})
+      var p = new Permalink(':month/bar', {date: '2013-09-15T12:34:56-08:00'})
       expect(p.toString()).to.equal('/09/bar/')
     })
 
     it('can replace `:day` with the day of the post\'s publication date', function() {
-      var p = new Permalink(':day/fizz', {date: '2013/09/15'})
+      var p = new Permalink(':day/fizz', {date: '2013-09-15T12:34:56-08:00'})
       expect(p.toString()).to.equal('/15/fizz/')
     })
 
@@ -65,7 +68,7 @@ describe('Permalink', function() {
         title: 'This is the title',
         filename: '_posts/my-file.html',
         type: 'article',
-        date: '2013/09/15',
+        date: '2013-09-15T12:34:56-08:00',
         pagenum: 2
       })
       expect(p.toString()).to.equal('/path/to/articles/2013/09/15/this-is-the-title/my-file/page/2/')
@@ -85,16 +88,16 @@ describe('Permalink', function() {
     it('can append directories to the permalink', function() {
       var p = new Permalink('sub-directory/:title', {
         title: 'Foo to the Bar',
-        date: '2013-06-13'
+        date: '2013-06-13T12:34:56-08:00'
       })
       p.append('page/:pagenum')
       expect(p.permalink).to.equal('/sub-directory/:title/page/:pagenum')
     })
 
-    it('accounts for permalinks that end with a file instead of a director', function() {
+    it('accounts for permalinks that end with a file instead of a directory', function() {
       var p = new Permalink('sub-directory/:title.html', {
         title: 'Foo to the Bar',
-        date: '2013-06-13'
+        date: '2013-06-13T12:34:56-08:00'
       })
       p.append('page/:pagenum')
       expect(p.permalink).to.equal('/sub-directory/page/:pagenum/:title.html')
@@ -107,7 +110,7 @@ describe('Permalink', function() {
     it('returns a new instance with all the same properties', function() {
       var original = new Permalink('sub-directory/:title', {
         title: 'Foo to the Bar',
-        date: '2013-06-13',
+        date: '2013-06-13T12:34:56-08:00',
         pagenum: 2,
         type: 'article'
       })
@@ -127,7 +130,7 @@ describe('Permalink', function() {
     it('can do a regex replace on it\'s `_permalink` property', function() {
       var p = new Permalink('sub-directory/:title', {
         title: 'Foo to the Bar',
-        date: '2013-06-13'
+        date: '2013-06-13T12:34:56-08:00'
       })
       p.replace(/r/g, 'w')
       expect(p.permalink).to.equal('/sub-diwectowy/:title/')
