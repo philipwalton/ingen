@@ -3,6 +3,7 @@
 var fs = require('fs-extra')
 var path = require('path')
 var program = require('commander')
+var changeCase = require('change-case')
 
 var basePath = path.normalize(__dirname + path.sep + '..')
 var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
@@ -20,6 +21,7 @@ program
   .option('-e, --env <value>', 'set the environment (defaults to "production")', 'production')
   .option('-p, --port <number>', 'set the port to listen on (defaults to 4000)', 4000)
   .option('-w, --watch', 'watch for change and rebuild the site')
+  .option('-i, --include-drafts', 'ignore posts with a draft value of `true`')
 
 program
   .command('build')
@@ -43,7 +45,7 @@ program.options.forEach(function(option) {
   program.on(option, function(value) {
     // options with no value are assumed to be boolean
     // and if they're set they're assumed to be true
-    options[option] = value || true
+    options[changeCase.camelCase(option)] = value || true
   });
 })
 

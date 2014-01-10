@@ -46,6 +46,7 @@
     "lodash-node": "*",
     "swag": "~0.3.1",
     "he": "~0.3.6",
-    "moment-timezone": "0.0.3"
+    "moment-timezone": "0.0.3",
+    "change-case": "~1.0.4"
   }
 }
