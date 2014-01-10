@@ -3,7 +3,7 @@
 var fs = require('fs-extra')
 var path = require('path')
 var program = require('commander')
-var changeCase = require('change-case')
+var camelCase = require('change-case').camelCase
 
 var basePath = path.normalize(__dirname + path.sep + '..')
 var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
@@ -45,7 +45,7 @@ program.options.forEach(function(option) {
   program.on(option, function(value) {
     // options with no value are assumed to be boolean
     // and if they're set they're assumed to be true
-    options[changeCase.camelCase(option)] = value || true
+    options[camelCase(option)] = value || true
   });
 })
 
