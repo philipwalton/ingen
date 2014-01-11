@@ -16,7 +16,7 @@ _.each(postTypes, function(postType) {
   _.each(taxonomyTypes, function(taxonomyType) {
     var taxonomyTypePlural = inflector.pluralize(taxonomyType)
     var postTypePlural = inflector.pluralize(postType)
-    var helperName = camelCase(['if', postType, 'has', taxonomyType].join(''))
+    var helperName = camelCase(['if', postType, 'has', taxonomyType].join('_'))
 
     // See if a the post context contains the given taxonomy
     //
@@ -25,7 +25,7 @@ _.each(postTypes, function(postType) {
     // - {{ifArticleHasAuthor <value>}}
     // - {{ifArticleHasTag <value>}}
     Handlebars.registerHelper(
-      camelCase(['if', postType, 'has', taxonomyType].join('')),
+      camelCase(['if', postType, 'has', taxonomyType].join('_')),
       function(value, options) {
         return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
           ? options.fn(this)
@@ -40,7 +40,7 @@ _.each(postTypes, function(postType) {
     // - {{countArticlesWithAuthor <value>}}
     // - {{countArticlesWithTag <value>}}
     Handlebars.registerHelper(
-      camelCase(['count', postTypePlural, 'with', taxonomyType].join('')),
+      camelCase(['count', postTypePlural, 'with', taxonomyType].join('_')),
       function(value, options) {
 
         return Taxonomy.all()[taxonomyType][value].posts.length
@@ -54,7 +54,7 @@ _.each(postTypes, function(postType) {
     // - {{#eachAuthor}}
     // - {{#eachTag}}
     Handlebars.registerHelper(
-      camelCase(['each', taxonomyType].join('')),
+      camelCase(['each', taxonomyType].join('_')),
       function(options) {
         var taxonomyValues = Taxonomy.all()[taxonomyType]
         return _.map(_.keys(taxonomyValues).sort(), function(value) {
