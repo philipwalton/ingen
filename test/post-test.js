@@ -4,7 +4,6 @@ var Post = require('../lib/post')
 var File = require('../lib/file')
 var Taxonomy = require('../lib/taxonomy')
 var posts = fs.readJSONSync('test/fixtures/posts.json')
-var _ = require('lodash-node/modern')
 
 // init config with the `tag` taxonomy
 var config = require('../lib/config').init({taxonomyTypes: ['tag']})
