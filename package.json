@@ -26,9 +26,9 @@
     "url": "git://github.com/philipwalton/ingen.git"
   },
   "devDependencies": {
-    "mocha": "~1.13.0",
-    "chai": "~1.8.1",
-    "shelljs": "~0.2.6"
+    "mocha": "*",
+    "chai": "*",
+    "shelljs": "*"
   },
   "dependencies": {
     "commander": "~2.0.0",
