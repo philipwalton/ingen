@@ -1,15 +1,26 @@
 var fs = require('fs-extra')
 var expect = require('chai').expect
 var Page = require('../lib/page')
+var Post = require('../lib/post')
+var File = require('../lib/file')
 
 // init config with the `tag` taxonomy
-var config = require('../lib/config').init({})
+var config = require('../lib/config').init({
+  layoutsDirectory: 'test/src/_layouts',
+  destination: 'test/src/_site/'
+})
 
 var pages = [
-  {title: 'First Page'},
+  {
+    title: 'First Page',
+    permalink: '/:title',
+    layout: 'default'
+  },
   {title: 'Second Page'},
   {title: 'Third Page'}
 ]
+
+var posts = fs.readJSONSync('test/fixtures/posts.json')
 
 describe('Page', function() {
 
@@ -52,8 +63,25 @@ describe('Page', function() {
   })
 
   describe('#init', function() {
-    it('can initialize a new page from an object')
-    it('can initialize a new page from a page instance')
+    it('can initialize a new page from an object', function() {
+      var p = new Page(pages[0])
+      expect(p.title).to.equal('First Page')
+      expect(p.layout).to.equal('default')
+      expect(p.permalink.toString()).to.equal('/first-page/')
+    })
+    it('can initialize a new page from a file instance', function() {
+      var file = File.getOrCreate('test/src/_pages/index.html')
+      var p = new Page(file)
+      expect(p.title).to.equal('Home')
+      expect(p.layout).to.equal('default')
+      expect(p.permalink.toString()).to.equal('/')
+    })
+    it('can initialize a new page from a post instance', function() {
+      var post = new Post(posts[0])
+      var p = new Page(post)
+      expect(p.title).to.equal('First Post')
+      expect(p.type).to.equal('post')
+    })
   })
 
 })
