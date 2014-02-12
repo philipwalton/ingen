@@ -75,7 +75,6 @@ describe('Post', function() {
   describe('#registerTaxonomies', function() {
     it('creates taxonomy objects for each taxonomy on the post', function() {
 
-      debugger
       var p = new Post(posts[0])
       p.registerTaxonomies()
 
