@@ -35,8 +35,9 @@ describe('ingen', function() {
 
   describe('build', function() {
     it('should build the site', function(done) {
+
       var spawn = require('child_process').spawn
-      var child = spawn('ingen', ['build'], {cwd: 'test/src'})
+      var child = spawn('../../bin/ingen', ['build'], {cwd: 'test/src'})
 
       child.on('close', function() {
         var generatedFiles = _.filter(glob.sync('test/src/_site/**/*', {dot:true}), filesOnly)
