@@ -5,7 +5,7 @@ var Post = require('../lib/post')
 var File = require('../lib/file')
 
 // init config with the test site info
-var config = require('../lib/config').init({
+var config = require('../lib/config')._reset().init({
   layoutsDirectory: 'test/src/_layouts',
   destination: 'test/src/_site/'
 })
