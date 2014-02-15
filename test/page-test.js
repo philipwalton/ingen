@@ -1,14 +1,13 @@
 var fs = require('fs-extra')
 var expect = require('chai').expect
+var _ = require('lodash-node/modern')
+
 var Page = require('../lib/page')
 var Post = require('../lib/post')
 var File = require('../lib/file')
 
-// init config with the test site info
-var config = require('../lib/config')._reset().init({
-  layoutsDirectory: 'test/src/_layouts',
-  destination: 'test/src/_site/'
-})
+var config = require('../lib/config')
+var originalConfig = _.clone(config)
 
 var pages = [
   {
@@ -24,7 +23,21 @@ var posts = fs.readJSONSync('test/fixtures/posts.json')
 
 describe('Page', function() {
 
+  before(function() {
+    Page.reset()
+  })
+
+  beforeEach(function() {
+    // update the config just for this text
+    config.layoutsDirectory = 'test/src/_layouts'
+    config.destination = 'test/src/_site/'
+  })
+
   afterEach(function() {
+    // restore the config
+    config.layoutsDirectory = originalConfig.layoutsDirectory
+    config.destination = originalConfig.destination
+
     Page.reset()
   })
 
