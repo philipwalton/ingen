@@ -13,13 +13,11 @@ var originalConfig = _.clone(config)
 
 describe('Post', function() {
 
-  before(function() {
-    Post.reset()
-  })
-
   beforeEach(function() {
     // update the config just for this text
     config.taxonomyTypes = ['tag']
+
+    Post.reset()
   })
 
   afterEach(function() {

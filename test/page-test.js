@@ -23,14 +23,12 @@ var posts = fs.readJSONSync('test/fixtures/posts.json')
 
 describe('Page', function() {
 
-  before(function() {
-    Page.reset()
-  })
-
   beforeEach(function() {
     // update the config just for this text
     config.layoutsDirectory = 'test/src/_layouts'
     config.destination = 'test/src/_site/'
+
+    Page.reset()
   })
 
   afterEach(function() {
