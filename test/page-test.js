@@ -1,10 +1,12 @@
 var fs = require('fs-extra')
+var path = require('path')
 var expect = require('chai').expect
 var _ = require('lodash-node/modern')
 
 var Page = require('../lib/page')
 var Post = require('../lib/post')
 var File = require('../lib/file')
+var site = require('../lib/site')
 
 var config = require('../lib/config').init()
 var originalConfig = _.clone(config)
@@ -32,20 +34,26 @@ var posts = fs.readJSONSync('test/fixtures/posts.json')
 
 describe('Page', function() {
 
-  beforeEach(function() {
-    // update the config just for this text
+  before(function() {
+    config.partialsDirectory = 'test/src/_partials'
     config.layoutsDirectory = 'test/src/_layouts'
     config.destination = 'test/src/_site/'
+    site._registerPartials()
+  })
 
+  after(function() {
+    fs.removeSync(config.destination)
+    config.partialsDirectory = originalConfig.partialsDirectory
+    config.layoutsDirectory = originalConfig.layoutsDirectory
+    config.destination = originalConfig.destination
+  })
+
+  beforeEach(function() {
     Page.reset()
     Post.reset()
   })
 
   afterEach(function() {
-    // restore the config
-    config.layoutsDirectory = originalConfig.layoutsDirectory
-    config.destination = originalConfig.destination
-
     Page.reset()
     Post.reset()
   })
@@ -63,7 +71,8 @@ describe('Page', function() {
   })
 
   describe('.each', function() {
-    it('accepts a function, iterates over each page, and calls the function with the page as its argument', function() {
+    it('accepts a function, iterates over each page, '
+        + 'and calls the function with the page as its argument', function() {
       new Page(pages[0])
       new Page(pages[1])
       new Page(pages[2])
@@ -117,6 +126,39 @@ describe('Page', function() {
       p.paginate()
 
       expect(Page.all().length).to.equal(3)
+    })
+  })
+
+  describe('#render', function() {
+    it('renders the page content with any template data', function() {
+      var p = new Page({
+        title: 'This is the title',
+        content: 'This is the {{page.foobar}}',
+        layout: 'default',
+        foobar: 'FooBar'
+      })
+      p.render()
+
+      expect(p.content.indexOf('This is the FooBar')).to.not.equal(-1)
+    })
+  })
+
+  describe('#write', function() {
+    it('write a rendered page to the permalink location', function() {
+      var p = new Page({
+        title: 'This is the title',
+        content: 'This is the {{page.foobar}}',
+        layout: 'default',
+        foobar: 'FooBar'
+      })
+      p.render()
+      p.write()
+
+      var output = fs.readFileSync(
+          path.join(config.destination, 'this-is-the-title/index.html'),
+          'utf-8'
+      )
+      expect(output.indexOf('This is the FooBar')).to.not.equal(-1)
     })
   })
 

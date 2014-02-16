@@ -101,10 +101,10 @@ describe('Post', function() {
   })
 
   describe('#render', function() {
-    it('renders the post content with any post or template data', function() {
+    it('renders the post content with any template data', function() {
       var p = new Post({
-        title: "This is the title",
-        content: "{{title}}, and this is the content"
+        title: 'This is the title',
+        content: '{{title}}, and this is the content'
       })
       p.render()
       expect(p.content).to.equal('This is the title, and this is the content')
