@@ -33,9 +33,9 @@ describe('Post', function() {
       new Post(posts[1])
       new Post(posts[2])
       expect(Post.all().length).to.equal(3)
-      expect(Post.all()[0].title).to.equal('First Post')
-      expect(Post.all()[1].title).to.equal('Second Post')
-      expect(Post.all()[2].title).to.equal('Third Post')
+      expect(Post.all()[0].title).to.equal('The 1st Recipe')
+      expect(Post.all()[1].title).to.equal('The 2nd Recipe')
+      expect(Post.all()[2].title).to.equal('The 3rd Recipe')
     })
   })
 
@@ -64,11 +64,11 @@ describe('Post', function() {
   describe('#init', function() {
     it('can initialize a new post from an object', function() {
       var p = new Post(posts[0])
-      expect(p.title).to.equal('First Post')
-      expect(p.type).to.equal('post')
+      expect(p.title).to.equal('The 1st Recipe')
+      expect(p.type).to.equal('recipe')
       expect(p.date).to.equal('2013-01-01T12:34:56-08:00')
       expect(p.tags).to.deep.equal(['red', 'green'])
-      expect(p.content).to.equal('This is the content of the first post')
+      expect(p.content).to.equal('This is the content of the first recipe')
     })
 
     it('can initialize a new post from a file instance', function() {
