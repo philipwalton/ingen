@@ -1,48 +1,57 @@
 [
   {
-    "title": "First Post",
-    "type": "post",
+    "title": "The 1st Recipe",
+    "type": "recipe",
     "date": "2013-01-01T12:34:56-08:00",
     "tags": [
       "red",
       "green"
     ],
-    "content": "This is the content of the first post"
+    "content": "This is the content of the first recipe"
   },
   {
-    "title": "Second Post",
-    "type": "post",
+    "title": "The 2nd Recipe",
+    "type": "recipe",
     "date": "2013-01-02T12:34:56-08:00",
     "tags": [
       "red",
       "blue"
     ],
-    "content": "This is the content of the second post"
+    "content": "This is the content of the second recipe"
   },
   {
-    "title": "Third Post",
-    "type": "post",
+    "title": "The 3rd Recipe",
+    "type": "recipe",
     "date": "2013-01-03T12:34:56-08:00",
     "tags": [
       "green",
       "blue"
     ],
-    "content": "This is the content of the third post"
+    "content": "This is the content of the third recipe"
   },
   {
-    "title": "Forth Post",
-    "type": "post",
+    "title": "The 4th Recipe",
+    "type": "recipe",
     "date": "2013-01-04T12:34:56-08:00",
     "tags": [
       "green",
       "blue"
     ],
-    "content": "This is the content of the fourth post"
+    "content": "This is the content of the fourth recipe"
   },
   {
-    "title": "First Article",
+    "title": "The 5th Recipe",
+    "type": "recipe",
+    "date": "2013-01-05T12:34:56-08:00",
+    "tags": [
+      "red"
+    ],
+    "content": "This is the content of the fifth recipe"
+  },
+  {
+    "title": "The 1st Article",
     "type": "article",
-    "date": "2013-02-14T12:34:56-08:00",
+    "date": "2013-02-01T12:34:56-08:00",
     "tags": [
       "red",
       "green"
@@ -54,9 +63,9 @@
     "content": "This is the content of the first article"
   },
   {
-    "title": "Second Article",
+    "title": "The 2nd Article",
     "type": "article",
-    "date": "2013-02-07T12:34:56-08:00",
+    "date": "2013-02-02T12:34:56-08:00",
     "tags": [
       "red",
       "blue"
@@ -67,9 +76,9 @@
     "content": "This is the content of the second article"
   },
   {
-    "title": "Third Article",
+    "title": "The 3rd Article",
     "type": "article",
-    "date": "2013-02-23T12:34:56-08:00",
+    "date": "2013-02-03T12:34:56-08:00",
     "tags": [
       "green",
       "blue"
@@ -80,7 +89,7 @@
     "content": "This is the content of the third article"
   },
   {
-    "title": "Forth Article",
+    "title": "The 4th Article",
     "type": "article",
     "date": "2013-02-04T12:34:56-08:00",
     "tags": [
@@ -91,5 +100,17 @@
       "philip"
     ],
     "content": "This is the content of the fourth article"
+  },
+  {
+    "title": "The 5th Article",
+    "type": "article",
+    "date": "2013-02-05T12:34:56-08:00",
+    "tags": [
+      "red"
+    ],
+    "authors": [
+      "philip"
+    ],
+    "content": "This is the content of the fifth article"
   }
 ]
