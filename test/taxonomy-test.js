@@ -64,4 +64,32 @@ describe('Taxonomy', function() {
     })
   })
 
+  describe('.getOrCreate', function() {
+    it('creates a new instance unless an identical one exists', function() {
+
+      var t1 = Taxonomy.getOrCreate('tag', 'foo')
+      var t2 = Taxonomy.getOrCreate('tag', 'foo')
+      var t3 = Taxonomy.getOrCreate('tag', 'bar')
+
+      expect(t1).to.equal(t2)
+      expect(t2).to.not.equal(t3)
+    })
+  })
+
+  describe('#init', function() {
+    it('initializes a new taxonomy object from a type and value', function() {
+      var t = new Taxonomy('tag', 'foo')
+      expect(t.type).to.equal('tag')
+      expect(t.typePlural).to.equal('tags')
+      expect(t.value).to.equal('foo')
+      expect(t.posts).to.deep.equal([])
+    })
+  })
+
+  describe('#toString', function() {
+    it('returns the value of the taxonomy', function() {
+      var t = new Taxonomy('tag', 'foo')
+      expect(t.toString()).to.equal('foo')
+    })
+  })
 })
