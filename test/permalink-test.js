@@ -2,7 +2,7 @@ var expect = require('chai').expect
 var Permalink = require('../lib/permalink')
 
 // init config with the default options
-var config = require('../lib/config').init({})
+var config = require('../lib/config').init()
 
 describe('Permalink', function() {
 

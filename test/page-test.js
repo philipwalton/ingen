@@ -6,7 +6,7 @@ var Page = require('../lib/page')
 var Post = require('../lib/post')
 var File = require('../lib/file')
 
-var config = require('../lib/config')
+var config = require('../lib/config').init()
 var originalConfig = _.clone(config)
 
 var pages = [
