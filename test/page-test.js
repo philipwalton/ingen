@@ -35,15 +35,13 @@ var posts = fs.readJSONSync('test/fixtures/posts.json')
 describe('Page', function() {
 
   before(function() {
-    config.partialsDirectory = 'test/src/_partials'
-    config.layoutsDirectory = 'test/src/_layouts'
-    config.destination = 'test/src/_site/'
+    config.layoutsDirectory = 'test/fixtures'
+    config.destination = 'test/_tmp'
     site._registerPartials()
   })
 
   after(function() {
     fs.removeSync(config.destination)
-    config.partialsDirectory = originalConfig.partialsDirectory
     config.layoutsDirectory = originalConfig.layoutsDirectory
     config.destination = originalConfig.destination
   })
@@ -101,11 +99,11 @@ describe('Page', function() {
       expect(p.permalink.toString()).to.equal('/first-page/')
     })
     it('can initialize a new page from a file instance', function() {
-      var file = File.getOrCreate('test/src/_pages/index.html')
+      var file = File.getOrCreate('test/fixtures/page.html')
       var p = new Page(file)
-      expect(p.title).to.equal('Home')
+      expect(p.title).to.equal('Test Page')
       expect(p.layout).to.equal('default')
-      expect(p.permalink.toString()).to.equal('/')
+      expect(p.permalink.toString()).to.equal('/test-page/')
     })
     it('can initialize a new page from a post instance', function() {
       var post = new Post(posts[0])
