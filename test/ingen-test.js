@@ -15,10 +15,10 @@ function fixture(name) {
 
 function clean() {
   // clear the generated site directory
-  shell.rm('-rf', 'test/src/_site')
+  shell.rm('-rf', 'test/src/complex/_site')
 
   // remove any .DS_Store files from the expected directory
-  _.each(glob.sync('test/expected/**/.DS_Store'), function(file) {
+  _.each(glob.sync('test/expected/complex/**/.DS_Store'), function(file) {
     fs.removeSync(file)
   })
 }
@@ -31,17 +31,17 @@ describe('ingen', function() {
 
   beforeEach(clean)
 
-  // after(clean)
+  after(clean)
 
   describe('build', function() {
     it('should build the site', function(done) {
 
       var spawn = require('child_process').spawn
-      var child = spawn('../../bin/ingen', ['build'], {cwd: 'test/src'})
+      var child = spawn('../../../bin/ingen', ['build'], {cwd: 'test/src/complex'})
 
       child.on('close', function() {
-        var generatedFiles = _.filter(glob.sync('test/src/_site/**/*', {dot:true}), filesOnly)
-        var expectedFiles = _.filter(glob.sync('test/expected/**/*',{dot:true}), filesOnly)
+        var generatedFiles = _.filter(glob.sync('test/src/complex/_site/**/*', {dot:true}), filesOnly)
+        var expectedFiles = _.filter(glob.sync('test/expected/complex/**/*',{dot:true}), filesOnly)
 
         expect(expectedFiles.length).to.equal(generatedFiles.length)
 
