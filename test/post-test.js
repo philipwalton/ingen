@@ -72,16 +72,16 @@ describe('Post', function() {
     })
 
     it('can initialize a new post from a file instance', function() {
-      var f = new File('test/src/_articles/article-one.md')
+      var f = new File('test/fixtures/post.md')
       // stub out the layout because we're not in the build context
       delete f.data.layout
 
-      var p = new Post(f, 'article')
-      expect(p.title).to.equal('Article One')
-      expect(p.type).to.equal('article')
+      var p = new Post(f, 'post')
+      expect(p.title).to.equal('Post Test')
+      expect(p.type).to.equal('post')
       expect(p.date).to.equal('2013-10-03T12:34:56-08:00')
       expect(p.tags).to.deep.equal(['foo', 'bar', 'fizz', 'buzz'])
-      expect(p.content.trim()).to.equal('Article one text.')
+      expect(p.content.trim()).to.equal('Post test content.')
     })
   })
 
