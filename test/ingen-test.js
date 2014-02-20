@@ -34,7 +34,7 @@ describe('ingen', function() {
   after(clean)
 
   describe('build', function() {
-    it('should build the site', function(done) {
+    it('should build a complex site', function(done) {
 
       var spawn = require('child_process').spawn
       var child = spawn('../../../bin/ingen', ['build'], {cwd: 'test/src/complex'})
