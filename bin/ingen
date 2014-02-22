@@ -7,7 +7,7 @@ var camelCase = require('change-case').camelCase
 
 var basePath = path.normalize(__dirname + path.sep + '..')
 var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
-var site = require('../lib/site')
+var Site = require('../lib/site')
 var config = require('../lib/config')
 
 // to store all set options
@@ -28,6 +28,7 @@ program
   .description('Build the site')
   .action(function() {
     config.init(options)
+    var site = new Site(config)
     site.build()
   })
 
@@ -36,6 +37,7 @@ program
   .description('Serve the site locally')
   .action(function() {
     config.init(options)
+    var site = new Site(config)
     site.serve()
   })
 
