@@ -5,11 +5,8 @@ var inflector = new natural.NounInflector()
 var _ = require('lodash-node/modern')
 
 // local dependencies
-var site = require('../../lib/site')
 var Query = require('../../lib/query')
 var Post = require('../../lib/post')
-var config = require('../../lib/config')
-var data = site.templateData
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1)
@@ -22,13 +19,17 @@ function renderQuery(params, options) {
   }).join('')
 }
 
-_.each(config.postTypes, function(type) {
-  Handlebars.registerHelper('each' + capitalize(type), function(options) {
-    var params = _.assign({type: type}, options.hash)
-    return renderQuery(params, options)
-  });
-})
+module.exports = function(site) {
 
-Handlebars.registerHelper('query', function(options) {
-  return renderQuery(this.page.query, options)
-})
+  _.each(site.config.postTypes, function(type) {
+    site.Handlebars.registerHelper('each' + capitalize(type), function(options) {
+      var params = _.assign({type: type}, options.hash)
+      return renderQuery(params, options)
+    });
+  })
+
+  site.Handlebars.registerHelper('query', function(options) {
+    return renderQuery(this.page.query, options)
+  })
+
+}
