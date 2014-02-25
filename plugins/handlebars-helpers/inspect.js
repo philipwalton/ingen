@@ -1,5 +1,5 @@
-module.exports = function(site) {
-  site.Handlebars.registerHelper('inspect', function(obj) {
+module.exports = function() {
+  this.Handlebars.registerHelper('inspect', function(obj) {
     debugger
     return obj
   })

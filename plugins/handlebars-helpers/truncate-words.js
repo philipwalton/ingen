@@ -1,7 +1,10 @@
-module.exports = function(site) {
+module.exports = function() {
 
-  site.Handlebars.registerHelper('truncateWords', function(content, options) {
-    var wordCount = options.hash.limit || site.config.defaultLimit
+  var config = this.config
+  var Handlebars = this.Handlebars
+
+  Handlebars.registerHelper('truncateWords', function(content, options) {
+    var wordCount = options.hash.limit || config.defaultLimit
     return content
       .replace(/(<([^>]+)>)/ig,"")
       .split(' ')

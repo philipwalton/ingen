@@ -4,13 +4,14 @@ var inflector = new natural.NounInflector()
 var camelCase = require('change-case').camelCase
 var _ = require('lodash-node/modern')
 
-// local dependencies
-var Taxonomy = require('../../lib/taxonomy')
+module.exports = function() {
 
-module.exports = function(site) {
+  var config = this.config
+  var Taxonomy = this.Taxonomy
+  var Handlebars = this.Handlebars
 
-  _.each(site.config.postTypes, function(postType) {
-    _.each(site.config.taxonomyTypes, function(taxonomyType) {
+  _.each(config.postTypes, function(postType) {
+    _.each(config.taxonomyTypes, function(taxonomyType) {
       var taxonomyTypePlural = inflector.pluralize(taxonomyType)
       var postTypePlural = inflector.pluralize(postType)
       var helperName = camelCase(['if', postType, 'has', taxonomyType].join('_'))
@@ -21,7 +22,7 @@ module.exports = function(site) {
       // the following helpers will be generated:
       // - {{ifArticleHasAuthor <value>}}
       // - {{ifArticleHasTag <value>}}
-      site.Handlebars.registerHelper(
+      Handlebars.registerHelper(
         camelCase(['if', postType, 'has', taxonomyType].join('_')),
         function(value, options) {
           return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
@@ -36,7 +37,7 @@ module.exports = function(site) {
       // the following helpers will be generated:
       // - {{countArticlesWithAuthor <value>}}
       // - {{countArticlesWithTag <value>}}
-      site.Handlebars.registerHelper(
+      Handlebars.registerHelper(
         camelCase(['count', postTypePlural, 'with', taxonomyType].join('_')),
         function(value, options) {
 
@@ -50,7 +51,7 @@ module.exports = function(site) {
       // the following helpers will be generated:
       // - {{#eachAuthor}}
       // - {{#eachTag}}
-      site.Handlebars.registerHelper(
+      Handlebars.registerHelper(
         camelCase(['each', taxonomyType].join('_')),
         function(options) {
           var taxonomyValues = Taxonomy.all()[taxonomyType]
