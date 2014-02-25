@@ -3,6 +3,7 @@ var path = require('path')
 var expect = require('chai').expect
 var shell = require('shelljs')
 var glob = require('glob')
+var jsdiff = require('diff')
 var _ = require('lodash-node/modern')
 
 function read(filename) {
@@ -49,10 +50,20 @@ describe('ingen', function() {
         expect(expectedFiles.length).to.equal(generatedFiles.length)
 
         _.times(expectedFiles.length, function(i) {
+
+
+
+
           // remove trailing whitespace before comparing
-          var expected = read(expectedFiles[i]).replace(/\s*\n/g, '\n')
-          var generated = read(generatedFiles[i]).replace(/\s*\n/g, '\n')
-          expect(expected).to.equal(generated)
+          var expected = read(expectedFiles[i]) //.replace(/\s*\n/g, '\n')
+          var generated = read(generatedFiles[i]) //.replace(/\s*\n/g, '\n')
+          var diff = jsdiff.diffChars(expected, generated)
+          console.log(diff)
+          console.log("")
+          console.log("------------------------------------------------------")
+          console.log("")
+
+          expect(expected.replace(/\s*\n/g, '\n')).to.equal(generated.replace(/\s*\n/g, '\n'))
         })
 
         done()
