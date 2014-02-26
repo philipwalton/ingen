@@ -3,8 +3,10 @@ var path = require('path')
 var expect = require('chai').expect
 var shell = require('shelljs')
 var glob = require('glob')
-var jsdiff = require('diff')
+var diffChars = require('diff').diffChars
 var _ = require('lodash-node/modern')
+
+var nonwhitespace = /\S/
 
 function read(filename) {
   return fs.readFileSync(filename, 'utf8')
@@ -26,6 +28,16 @@ function clean() {
 
 function filesOnly(file) {
   return fs.statSync(file).isFile()
+}
+
+function containsNonWhiteSpaceDiffs(a, b) {
+  var diffs = diffChars(a, b)
+  for (var i = 0, diff; diff = diffs[i]; i++) {
+    if ((diff.added || diff.removed) && nonwhitespace.test(diff.value)) {
+      return true
+    }
+  }
+  return false
 }
 
 describe('ingen', function() {
@@ -50,20 +62,11 @@ describe('ingen', function() {
         expect(expectedFiles.length).to.equal(generatedFiles.length)
 
         _.times(expectedFiles.length, function(i) {
-
-
-
-
-          // remove trailing whitespace before comparing
-          var expected = read(expectedFiles[i]) //.replace(/\s*\n/g, '\n')
-          var generated = read(generatedFiles[i]) //.replace(/\s*\n/g, '\n')
-          var diff = jsdiff.diffChars(expected, generated)
-          console.log(diff)
-          console.log("")
-          console.log("------------------------------------------------------")
-          console.log("")
-
-          expect(expected.replace(/\s*\n/g, '\n')).to.equal(generated.replace(/\s*\n/g, '\n'))
+          var expected = read(expectedFiles[i])
+          var generated = read(generatedFiles[i])
+          if (containsNonWhiteSpaceDiffs(expected, generated)) {
+            expect(expected).to.equal(generated)
+          }
         })
 
         done()
