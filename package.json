@@ -47,6 +47,7 @@
     "swag": "~0.3.1",
     "he": "~0.3.6",
     "moment-timezone": "0.0.3",
-    "change-case": "~1.0.4"
+    "change-case": "~1.0.4",
+    "private-parts": "~0.1.0"
   }
 }

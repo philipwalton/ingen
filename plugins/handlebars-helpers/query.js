@@ -5,6 +5,8 @@ var _ = require('lodash-node/modern')
 
 module.exports = function() {
 
+  var site = this
+
   var config = this.config
   var Query = this.Query
   var Post = this.Post
@@ -15,7 +17,7 @@ module.exports = function() {
   }
 
   function renderQuery(params, options) {
-    var query = new Query(params, Post.all())
+    var query = new Query(params, site.posts.all())
     return _.map(query.run(), function(post) {
       return options.fn(post)
     }).join('')

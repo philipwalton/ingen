@@ -7,10 +7,10 @@ var Page = require('../lib/page')
 var Post = require('../lib/post')
 var File = require('../lib/file')
 var Site = require('../lib/site')
-var site = new Site()
 
 var config = require('../lib/config').init()
 var originalConfig = _.clone(config)
+var site
 
 var pages = [
   {
@@ -38,6 +38,7 @@ describe('Page', function() {
   before(function() {
     config.layoutsDirectory = 'test/fixtures'
     config.destination = 'test/_tmp'
+    site = new Site(config)
     site._registerPartials()
   })
 
@@ -49,12 +50,10 @@ describe('Page', function() {
 
   beforeEach(function() {
     Page.reset()
-    Post.reset()
   })
 
   afterEach(function() {
     Page.reset()
-    Post.reset()
   })
 
   describe('.all', function() {
@@ -116,13 +115,8 @@ describe('Page', function() {
 
   describe('#paginate', function() {
     it('creates additional pages based on the query', function() {
-      // create post data to paginate with
-      _.each(posts, function(post) {
-        new Post(post)
-      })
-
       var p = new Page(pages[3])
-      p.paginate()
+      p.paginate(posts)
 
       expect(Page.all().length).to.equal(3)
     })

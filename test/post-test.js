@@ -16,49 +16,11 @@ describe('Post', function() {
   beforeEach(function() {
     // update the config just for this text
     config.taxonomyTypes = ['tag']
-
-    Post.reset()
   })
 
   afterEach(function() {
     // restore the config
     config.taxonomyTypes = originalConfig.taxonomyTypes
-
-    Post.reset()
-  })
-
-  describe('.all', function() {
-    it('returns an array of all existing posts', function() {
-      new Post(posts[0])
-      new Post(posts[1])
-      new Post(posts[2])
-      expect(Post.all().length).to.equal(3)
-      expect(Post.all()[0].title).to.equal('The 1st Recipe')
-      expect(Post.all()[1].title).to.equal('The 2nd Recipe')
-      expect(Post.all()[2].title).to.equal('The 3rd Recipe')
-    })
-  })
-
-  describe('.each', function() {
-    it('accepts a function, iterates over each post, and calls the function with the post as its argument', function() {
-      new Post(posts[0])
-      new Post(posts[1])
-      new Post(posts[2])
-      Post.each(function(post, i) {
-        expect(post.title).to.equal(posts[i].title)
-      })
-    })
-  })
-
-  describe('.reset', function() {
-    it('restores the post list to an empty array', function() {
-      new Post(posts[0])
-      new Post(posts[1])
-      new Post(posts[2])
-      expect(Post.all().length).to.equal(3)
-      Post.reset()
-      expect(Post.all().length).to.equal(0)
-    })
   })
 
   describe('#init', function() {
