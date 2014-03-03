@@ -36,16 +36,15 @@ var posts = fs.readJSONSync('test/fixtures/posts.json')
 describe('Page', function() {
 
   before(function() {
-    config.layoutsDirectory = 'test/fixtures'
-    config.destination = 'test/_tmp'
-    site = new Site(config)
+    site = new Site({
+      destination: 'test/_tmp',
+      layoutsDirectory: 'test/fixtures'
+    })
     site._registerPartials()
   })
 
   after(function() {
     fs.removeSync(config.destination)
-    config.layoutsDirectory = originalConfig.layoutsDirectory
-    config.destination = originalConfig.destination
   })
 
   beforeEach(function() {

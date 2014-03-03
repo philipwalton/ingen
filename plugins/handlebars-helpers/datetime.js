@@ -2,6 +2,9 @@ var moment = require('moment-timezone')
 
 module.exports = function() {
 
+  var config = this.config
+  var Handlebars = this.Handlebars
+
   function datetime(value, options) {
     // if value isn't present, assume the current date/time
     if (!options) {
@@ -11,9 +14,9 @@ module.exports = function() {
 
     var format = options.hash.format
     return moment(value)
-      .tz(site.config.timezone)
+      .tz(config.timezone)
       .format(format)
   }
 
-  this.Handlebars.registerHelper('datetime', datetime.bind(this))
+  Handlebars.registerHelper('datetime', datetime.bind(this))
 }

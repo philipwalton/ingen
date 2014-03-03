@@ -2,7 +2,7 @@
   "name": "ingen",
   "version": "0.1.0-alpha",
   "description": "An event driven, fully customizable, static site generator for node.",
-  "main": "index.js",
+  "main": "lib/site.js",
   "author": {
     "name": "Philip Walton",
     "url": "http://philipwalton.com"
