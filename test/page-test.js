@@ -8,7 +8,7 @@ var Post = require('../lib/post')
 var File = require('../lib/file')
 var Site = require('../lib/site')
 
-var config = require('../lib/config').init()
+var config = require('../lib/config')
 var originalConfig = _.clone(config)
 var site
 

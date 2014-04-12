@@ -9,9 +9,6 @@ var taxonomies = [
   {type: 'category', value: 'fizzbuzz'}
 ]
 
-// var config = require('../lib/config').init()
-// var originalConfig = _.clone(config)
-
 describe('Taxonomy', function() {
 
   beforeEach(function() {

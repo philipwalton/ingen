@@ -6,14 +6,14 @@ var originalConfig = _.clone(config)
 
 describe('config', function() {
 
-  describe('#init', function() {
+  describe('#set', function() {
 
     afterEach(function() {
-      config.init(originalConfig)
+      config.set(originalConfig)
     })
 
     it('merges the passed options with the config defaults', function() {
-      config.init({
+      config.set({
         source: './foo',
         destination: './bar',
         fizz: 'buzz'
@@ -30,7 +30,7 @@ describe('config', function() {
     })
 
     it('always includes certain default, even if overridden', function() {
-      config.init({
+      config.set({
         excludeFiles: ['foo'],
         watchExcludes: ['bar']
       })

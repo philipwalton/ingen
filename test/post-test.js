@@ -7,8 +7,7 @@ var File = require('../lib/file')
 var Taxonomy = require('../lib/taxonomy')
 var posts = fs.readJSONSync('test/fixtures/posts.json')
 
-// init config with the `tag` taxonomy
-var config = require('../lib/config').init()
+var config = require('../lib/config')
 var originalConfig = _.clone(config)
 
 describe('Post', function() {

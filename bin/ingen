@@ -10,35 +10,54 @@ var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
 var Site = require('../lib/site')
 var config = require('../lib/config')
 
+// Configuration settings from _config.
+var fileConfig = {}
+
 // to store all set options
 var options = {}
+
+function createSite() {
+  var userConfig = fs.existsSync(program.config)
+    ? fs.readJSONSync(program.config)
+    : {};
+
+  config.set(userConfig)
+  config.set(options)
+
+  return new Site()
+}
 
 program
   .version(pkg.version)
   .usage('[command] [options]')
-  .option('-s, --source <dir>', 'set the source directory (defaults to "./)', './')
-  .option('-d, --destination <dir>', 'set the destination directory (defaults to "./_site")', './_site')
-  .option('-e, --env <value>', 'set the environment (defaults to "production")', 'production')
-  .option('-p, --port <number>', 'set the port to listen on (defaults to 4000)', 4000)
-  .option('-w, --watch', 'watch for change and rebuild the site')
-  .option('-i, --include-drafts', 'ignore posts with a draft value of `true`')
+  .option('-s, --source [dir]',
+    'set the source directory (defaults to "./)', './')
+  .option('-d, --destination [dir]',
+    'set the destination directory (defaults to "./_site")', './_site')
+  .option('-e, --env [value]',
+    'set the environment (defaults to "production")', 'production')
+  .option('-p, --port [number]',
+    'set the port to listen on (defaults to 4000)', 4000)
+  .option('-w, --watch',
+    'watch for change and rebuild the site')
+  .option('-i, --include-drafts',
+    'ignore posts with a draft value of `true`')
+  .option('-c, --config [filepath]',
+    'location of the config file (defaults to "./_config.json")',
+    './_config.json')
 
 program
   .command('build')
   .description('Build the site')
   .action(function() {
-    config.init(options)
-    var site = new Site(config)
-    site.build()
+    createSite().build()
   })
 
 program
   .command('serve')
   .description('Serve the site locally')
   .action(function() {
-    config.init(options)
-    var site = new Site(config)
-    site.serve()
+    createSite.serve()
   })
 
 // list for all options and add them to the options hash
