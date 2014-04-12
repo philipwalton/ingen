@@ -24,7 +24,7 @@ function createSite() {
   config.set(userConfig)
   config.set(options)
 
-  return new Site()
+  return new Site(config)
 }
 
 program
