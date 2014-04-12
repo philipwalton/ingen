@@ -1,6 +1,5 @@
 var expect = require('chai').expect
 var Permalink = require('../lib/permalink')
-var config = require('../lib/config')
 
 describe('Permalink', function() {
 
@@ -54,6 +53,14 @@ describe('Permalink', function() {
     it('can replace `:day` with the day of the post\'s publication date', function() {
       var p = new Permalink(':day/fizz', {date: '2013-09-15T12:34:56-08:00'})
       expect(p.toString()).to.equal('/15/fizz/')
+    })
+
+    it('accounts for timezone when figuring out dates', function() {
+      var p = new Permalink(':year/:month/:day', {
+        date: '2013-12-31T23:59:59-08:00',
+        timezone: 'America/New_York'
+      })
+      expect(p.toString()).to.equal('/2014/01/01/')
     })
 
     it('can replace `:pagenum` with the page\'s page number', function() {
