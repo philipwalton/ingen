@@ -12,19 +12,11 @@ var originalConfig = _.clone(config)
 
 describe('Post', function() {
 
-  beforeEach(function() {
-    // update the config just for this text
-    config.taxonomyTypes = ['tag']
-  })
-
-  afterEach(function() {
-    // restore the config
-    config.taxonomyTypes = originalConfig.taxonomyTypes
-  })
+  config = _.assign({}, config, {taxonomyTypes: ['tag']});
 
   describe('#init', function() {
     it('can initialize a new post from an object', function() {
-      var p = new Post(posts[0])
+      var p = new Post(posts[0], config)
       expect(p.title).to.equal('The 1st Recipe')
       expect(p.type).to.equal('recipe')
       expect(p.date).to.equal('2013-01-01T12:34:56-08:00')
@@ -37,7 +29,7 @@ describe('Post', function() {
       // stub out the layout because we're not in the build context
       delete f.data.layout
 
-      var p = new Post(f, 'post')
+      var p = new Post(f, 'post', config)
       expect(p.title).to.equal('Post Test')
       expect(p.type).to.equal('post')
       expect(p.date).to.equal('2013-10-03T12:34:56-08:00')
@@ -49,7 +41,7 @@ describe('Post', function() {
   describe('#registerTaxonomies', function() {
     it('creates taxonomy objects for each taxonomy on the post', function() {
 
-      var p = new Post(posts[0])
+      var p = new Post(posts[0], config)
       p.registerTaxonomies()
 
       var taxonomies = Taxonomy.all()
@@ -66,7 +58,7 @@ describe('Post', function() {
       var p = new Post({
         title: 'This is the title',
         content: '{{title}}, and this is the content'
-      })
+      }, config)
       p.render()
       expect(p.content).to.equal('This is the title, and this is the content')
     })

@@ -9,7 +9,6 @@ var File = require('../lib/file')
 var Site = require('../lib/site')
 
 var config = require('../lib/config')
-var originalConfig = _.clone(config)
 var site
 
 var pages = [
@@ -57,9 +56,9 @@ describe('Page', function() {
 
   describe('.all', function() {
     it('returns an array of all existing pages', function() {
-      new Page(pages[0])
-      new Page(pages[1])
-      new Page(pages[2])
+      new Page(pages[0], config)
+      new Page(pages[1], config)
+      new Page(pages[2], config)
       expect(Page.all().length).to.equal(3)
       expect(Page.all()[0].title).to.equal('First Page')
       expect(Page.all()[1].title).to.equal('Second Page')
@@ -70,9 +69,9 @@ describe('Page', function() {
   describe('.each', function() {
     it('accepts a function, iterates over each page, '
         + 'and calls the function with the page as its argument', function() {
-      new Page(pages[0])
-      new Page(pages[1])
-      new Page(pages[2])
+      new Page(pages[0], config)
+      new Page(pages[1], config)
+      new Page(pages[2], config)
       Page.each(function(page, i) {
         expect(page.title).to.equal(pages[i].title)
       })
@@ -81,9 +80,9 @@ describe('Page', function() {
 
   describe('.reset', function() {
     it('restores the page list to an empty array', function() {
-      new Page(pages[0])
-      new Page(pages[1])
-      new Page(pages[2])
+      new Page(pages[0], config)
+      new Page(pages[1], config)
+      new Page(pages[2], config)
       expect(Page.all().length).to.equal(3)
       Page.reset()
       expect(Page.all().length).to.equal(0)
@@ -92,21 +91,21 @@ describe('Page', function() {
 
   describe('#init', function() {
     it('can initialize a new page from an object', function() {
-      var p = new Page(pages[0])
+      var p = new Page(pages[0], config)
       expect(p.title).to.equal('First Page')
       expect(p.layout).to.equal('default')
       expect(p.permalink.toString()).to.equal('/first-page/')
     })
     it('can initialize a new page from a file instance', function() {
       var file = File.getOrCreate('test/fixtures/page.html')
-      var p = new Page(file)
+      var p = new Page(file, config)
       expect(p.title).to.equal('Test Page')
       expect(p.layout).to.equal('default')
       expect(p.permalink.toString()).to.equal('/test-page/')
     })
     it('can initialize a new page from a post instance', function() {
       var post = new Post(posts[0])
-      var p = new Page(post)
+      var p = new Page(post, config)
       expect(p.title).to.equal('The 1st Recipe')
       expect(p.type).to.equal('recipe')
     })
@@ -114,7 +113,7 @@ describe('Page', function() {
 
   describe('#paginate', function() {
     it('creates additional pages based on the query', function() {
-      var p = new Page(pages[3])
+      var p = new Page(pages[3], config)
       p.paginate(posts)
 
       expect(Page.all().length).to.equal(3)
@@ -128,7 +127,7 @@ describe('Page', function() {
         content: 'This is the {{page.foobar}}',
         layout: 'default',
         foobar: 'FooBar'
-      })
+      }, config)
       p.render()
 
       expect(p.content.indexOf('This is the FooBar')).to.not.equal(-1)
@@ -142,7 +141,7 @@ describe('Page', function() {
         content: 'This is the {{page.foobar}}',
         layout: 'default',
         foobar: 'FooBar'
-      })
+      }, config)
       p.render()
       p.write()
 

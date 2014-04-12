@@ -30,7 +30,7 @@ module.exports = function() {
         obj.query = {}
         obj.query[taxonomy.type] = taxonomy.value
 
-        taxonomy.page = new Page(obj)
+        taxonomy.page = new Page(obj, config)
       }
     })
 
