@@ -2,17 +2,15 @@ var fs = require('fs-extra')
 var expect = require('chai').expect
 var _ = require('lodash-node/modern')
 
+var Config = require('../lib/config')
 var Post = require('../lib/post')
 var File = require('../lib/file')
 var Taxonomy = require('../lib/taxonomy')
 var posts = fs.readJSONSync('test/fixtures/posts.json')
 
-var config = require('../lib/config')
-var originalConfig = _.clone(config)
-
 describe('Post', function() {
 
-  config = _.assign({}, config, {taxonomyTypes: ['tag']});
+  var config = new Config({taxonomyTypes: ['tag']});
 
   describe('#init', function() {
     it('can initialize a new post from an object', function() {

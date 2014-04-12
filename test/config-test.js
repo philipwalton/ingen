@@ -1,18 +1,38 @@
 var expect = require('chai').expect
-var _ = require('lodash-node/modern')
+var assert = require('chai').assert
+var sinon = require('sinon')
+var Config = require('../lib/config')
 
-var config = require('../lib/config')
-var originalConfig = _.clone(config)
 
 describe('config', function() {
 
-  describe('#set', function() {
+  describe('#constructor', function() {
 
-    afterEach(function() {
-      config.set(originalConfig)
+    it('creates a new object with the config defaults', function() {
+
+      sinon.spy(Config.prototype, 'set');
+
+      var options = {}
+      var config = new Config(options)
+
+      assert(Config.prototype.set.calledWith(options));
+      Config.prototype.set.restore();
     })
 
+    it('call .set with any passed options', function() {
+      var config = new Config()
+      expect(config.source).to.equal('.')
+      expect(config.destination).to.equal('_site')
+    })
+
+  })
+
+  describe('#set', function() {
+
     it('merges the passed options with the config defaults', function() {
+
+      var config = new Config()
+
       config.set({
         source: './foo',
         destination: './bar',
@@ -30,6 +50,9 @@ describe('config', function() {
     })
 
     it('always includes certain default, even if overridden', function() {
+
+      var config = new Config()
+
       config.set({
         excludeFiles: ['foo'],
         watchExcludes: ['bar']

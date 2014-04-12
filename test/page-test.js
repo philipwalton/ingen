@@ -8,7 +8,6 @@ var Post = require('../lib/post')
 var File = require('../lib/file')
 var Site = require('../lib/site')
 
-var config = require('../lib/config')
 var site
 
 var pages = [
@@ -43,7 +42,7 @@ describe('Page', function() {
   })
 
   after(function() {
-    fs.removeSync(config.destination)
+    fs.removeSync(site.config.destination)
   })
 
   beforeEach(function() {
@@ -56,9 +55,9 @@ describe('Page', function() {
 
   describe('.all', function() {
     it('returns an array of all existing pages', function() {
-      new Page(pages[0], config)
-      new Page(pages[1], config)
-      new Page(pages[2], config)
+      new Page(pages[0], site.config)
+      new Page(pages[1], site.config)
+      new Page(pages[2], site.config)
       expect(Page.all().length).to.equal(3)
       expect(Page.all()[0].title).to.equal('First Page')
       expect(Page.all()[1].title).to.equal('Second Page')
@@ -69,9 +68,9 @@ describe('Page', function() {
   describe('.each', function() {
     it('accepts a function, iterates over each page, '
         + 'and calls the function with the page as its argument', function() {
-      new Page(pages[0], config)
-      new Page(pages[1], config)
-      new Page(pages[2], config)
+      new Page(pages[0], site.config)
+      new Page(pages[1], site.config)
+      new Page(pages[2], site.config)
       Page.each(function(page, i) {
         expect(page.title).to.equal(pages[i].title)
       })
@@ -80,9 +79,9 @@ describe('Page', function() {
 
   describe('.reset', function() {
     it('restores the page list to an empty array', function() {
-      new Page(pages[0], config)
-      new Page(pages[1], config)
-      new Page(pages[2], config)
+      new Page(pages[0], site.config)
+      new Page(pages[1], site.config)
+      new Page(pages[2], site.config)
       expect(Page.all().length).to.equal(3)
       Page.reset()
       expect(Page.all().length).to.equal(0)
@@ -91,21 +90,21 @@ describe('Page', function() {
 
   describe('#init', function() {
     it('can initialize a new page from an object', function() {
-      var p = new Page(pages[0], config)
+      var p = new Page(pages[0], site.config)
       expect(p.title).to.equal('First Page')
       expect(p.layout).to.equal('default')
       expect(p.permalink.toString()).to.equal('/first-page/')
     })
     it('can initialize a new page from a file instance', function() {
       var file = File.getOrCreate('test/fixtures/page.html')
-      var p = new Page(file, config)
+      var p = new Page(file, site.config)
       expect(p.title).to.equal('Test Page')
       expect(p.layout).to.equal('default')
       expect(p.permalink.toString()).to.equal('/test-page/')
     })
     it('can initialize a new page from a post instance', function() {
       var post = new Post(posts[0])
-      var p = new Page(post, config)
+      var p = new Page(post, site.config)
       expect(p.title).to.equal('The 1st Recipe')
       expect(p.type).to.equal('recipe')
     })
@@ -113,7 +112,7 @@ describe('Page', function() {
 
   describe('#paginate', function() {
     it('creates additional pages based on the query', function() {
-      var p = new Page(pages[3], config)
+      var p = new Page(pages[3], site.config)
       p.paginate(posts)
 
       expect(Page.all().length).to.equal(3)
@@ -127,7 +126,7 @@ describe('Page', function() {
         content: 'This is the {{page.foobar}}',
         layout: 'default',
         foobar: 'FooBar'
-      }, config)
+      }, site.config)
       p.render()
 
       expect(p.content.indexOf('This is the FooBar')).to.not.equal(-1)
@@ -141,12 +140,12 @@ describe('Page', function() {
         content: 'This is the {{page.foobar}}',
         layout: 'default',
         foobar: 'FooBar'
-      }, config)
+      }, site.config)
       p.render()
       p.write()
 
       var output = fs.readFileSync(
-          path.join(config.destination, 'this-is-the-title/index.html'),
+          path.join(site.config.destination, 'this-is-the-title/index.html'),
           'utf-8'
       )
       expect(output.indexOf('This is the FooBar')).to.not.equal(-1)

@@ -18,7 +18,7 @@ function getOptions(keys) {
   return options;
 }
 
-function createSite(program) {
+function createSite() {
   var fileConfigSettings = fs.existsSync(program.config)
     ? fs.readJSONSync(program.config)
     : {};
