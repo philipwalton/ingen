@@ -4,40 +4,48 @@ var fs = require('fs-extra')
 var path = require('path')
 var program = require('commander')
 var camelCase = require('change-case').camelCase
+var assign = require('lodash-node/modern').assign
 
 var basePath = path.normalize(__dirname + path.sep + '..')
 var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
 var Site = require('../lib/site')
-var config = require('../lib/config')
 
-// Configuration settings from _config.
-var fileConfig = {}
+function getOptions(keys) {
+  var options = {}
+  for (var i = 0, key; key = keys[i]; i++) {
+    if (key in program) options[key] = program[key]
+  }
+  return options;
+}
 
-// to store all set options
-var options = {}
-
-function createSite() {
-  var userConfig = fs.existsSync(program.config)
+function createSite(program) {
+  var fileConfigSettings = fs.existsSync(program.config)
     ? fs.readJSONSync(program.config)
     : {};
 
-  config.set(userConfig)
-  config.set(options)
+  var commandLineOptions = getOptions([
+    'source',
+    'destination',
+    'env',
+    'port',
+    'watch',
+    'includeDrafts'
+  ])
 
-  return new Site(config)
+  return new Site(assign(fileConfigSettings, commandLineOptions))
 }
 
 program
   .version(pkg.version)
   .usage('[command] [options]')
   .option('-s, --source [dir]',
-    'set the source directory (defaults to "./)', './')
+    'set the source directory (defaults to "./)')
   .option('-d, --destination [dir]',
-    'set the destination directory (defaults to "./_site")', './_site')
+    'set the destination directory (defaults to "./_site")')
   .option('-e, --env [value]',
-    'set the environment (defaults to "production")', 'production')
+    'set the environment (defaults to "production")')
   .option('-p, --port [number]',
-    'set the port to listen on (defaults to 4000)', 4000)
+    'set the port to listen on (defaults to 4000)')
   .option('-w, --watch',
     'watch for change and rebuild the site')
   .option('-i, --include-drafts',
@@ -57,18 +65,8 @@ program
   .command('serve')
   .description('Serve the site locally')
   .action(function() {
-    createSite.serve()
+    createSite().serve()
   })
-
-// list for all options and add them to the options hash
-program.options.forEach(function(option) {
-  var option = option.long.slice(2)
-  program.on(option, function(value) {
-    // options with no value are assumed to be boolean
-    // and if they're set they're assumed to be true
-    options[camelCase(option)] = value || true
-  });
-})
 
 program.parse(process.argv)
 
