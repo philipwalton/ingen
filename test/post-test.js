@@ -4,7 +4,7 @@ var _ = require('lodash-node/modern')
 
 var Config = require('../lib/config')
 var Post = require('../lib/post')
-var File = require('../lib/file')
+var Template = require('../lib/template')
 var Taxonomy = require('../lib/taxonomy')
 var posts = fs.readJSONSync('test/fixtures/posts.json')
 
@@ -26,11 +26,11 @@ describe('Post', function() {
     })
 
     it('can initialize a new post from a file instance', function() {
-      var f = new File('test/fixtures/post.md', config)
+      var template = new Template('test/fixtures/post.md', config)
       // stub out the layout because we're not in the build context
-      delete f.data.layout
+      delete template.data.layout
 
-      var p = new Post(f, 'post', config)
+      var p = new Post(template, 'post', config)
       expect(p.title).to.equal('Post Test')
       expect(p.type).to.equal('post')
       expect(p.date).to.equal('2013-10-03T12:34:56-08:00')

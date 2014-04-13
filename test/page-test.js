@@ -5,7 +5,7 @@ var _ = require('lodash-node/modern')
 
 var Page = require('../lib/page')
 var Post = require('../lib/post')
-var File = require('../lib/file')
+var Template = require('../lib/template')
 var Site = require('../lib/site')
 
 var site
@@ -96,7 +96,7 @@ describe('Page', function() {
       expect(p.permalink.toString()).to.equal('/first-page/')
     })
     it('can initialize a new page from a file instance', function() {
-      var file = File.getOrCreateFromFile('test/fixtures/page.html', site.config)
+      var file = Template.getOrCreateFromFile('test/fixtures/page.html', site.config)
       var p = new Page(file, site.config)
       expect(p.title).to.equal('Test Page')
       expect(p.layout).to.equal('default')

@@ -3,7 +3,7 @@ var natural = require('natural')
 var inflector = new natural.NounInflector()
 var _ = require('lodash-node/modern')
 
-var File = require('../lib/file')
+var Template = require('../lib/template')
 
 module.exports = function() {
 
@@ -31,7 +31,7 @@ module.exports = function() {
         obj.query = {}
         obj.query[taxonomy.type] = taxonomy.value
 
-        var f = new File(obj, '', config)
+        var f = new Template(obj, '', config)
 
         taxonomy.page = new Page(f, config)
       }

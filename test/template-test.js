@@ -1,8 +1,8 @@
 var assert = require('assert');
-var File = require('../lib/file');
+var Template = require('../lib/template');
 var Config = require('../lib/config');
 
-describe('File', function() {
+describe('Template', function() {
 
   var config = new Config({
     layoutsDirectory: 'test/fixtures'
@@ -14,7 +14,7 @@ describe('File', function() {
         + 'and config object', function() {
 
       var filename = 'test/fixtures/file-child.html'
-      var file = new File(filename, config);
+      var file = new Template(filename, config);
 
       assert.equal(file.filename, filename);
       assert.equal(file.content.trim(), 'File contents.');
@@ -26,7 +26,7 @@ describe('File', function() {
 
       var data = { foo: 'bar', fizz: 'buzz' }
       var content = 'This is the content.'
-      var file = new File(data, content, config);
+      var file = new Template(data, content, config);
 
       assert.equal(file.data, data);
       assert.equal(file.content.trim(), content);
@@ -43,8 +43,8 @@ describe('File', function() {
           type: 'post'
         }
       };
-      var file1 = new File('test/fixtures/file-child.html', config);
-      var file2 = new File(data, '', config);
+      var file1 = new Template('test/fixtures/file-child.html', config);
+      var file2 = new Template(data, '', config);
 
       assert.deepEqual(file1.data, {
         layout: 'file-parent',
@@ -73,8 +73,8 @@ describe('File', function() {
     it('returns a new instance '
         + 'unless one already exists at that location', function() {
 
-      var f1 = File.getOrCreateFromFile('test/fixtures/file.html', config);
-      var f2 = File.getOrCreateFromFile('test/fixtures/file.html', config);
+      var f1 = Template.getOrCreateFromFile('test/fixtures/file.html', config);
+      var f2 = Template.getOrCreateFromFile('test/fixtures/file.html', config);
 
       assert.equal(f2, f1);
     });
