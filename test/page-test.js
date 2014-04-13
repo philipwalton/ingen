@@ -96,7 +96,7 @@ describe('Page', function() {
       expect(p.permalink.toString()).to.equal('/first-page/')
     })
     it('can initialize a new page from a file instance', function() {
-      var file = File.getOrCreate('test/fixtures/page.html', site.config)
+      var file = File.getOrCreateFromFile('test/fixtures/page.html', site.config)
       var p = new Page(file, site.config)
       expect(p.title).to.equal('Test Page')
       expect(p.layout).to.equal('default')

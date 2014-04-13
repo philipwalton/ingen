@@ -68,13 +68,13 @@ describe('File', function() {
 
   });
 
-  describe('.getOrCreate', function() {
+  describe('.getOrCreateFromFile', function() {
 
     it('returns a new instance '
         + 'unless one already exists at that location', function() {
 
-      var f1 = File.getOrCreate('test/fixtures/file.html', config);
-      var f2 = File.getOrCreate('test/fixtures/file.html', config);
+      var f1 = File.getOrCreateFromFile('test/fixtures/file.html', config);
+      var f2 = File.getOrCreateFromFile('test/fixtures/file.html', config);
 
       assert.equal(f2, f1);
     });
