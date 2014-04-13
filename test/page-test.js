@@ -96,14 +96,14 @@ describe('Page', function() {
       expect(p.permalink.toString()).to.equal('/first-page/')
     })
     it('can initialize a new page from a file instance', function() {
-      var file = File.getOrCreate('test/fixtures/page.html')
+      var file = File.getOrCreate('test/fixtures/page.html', site.config)
       var p = new Page(file, site.config)
       expect(p.title).to.equal('Test Page')
       expect(p.layout).to.equal('default')
       expect(p.permalink.toString()).to.equal('/test-page/')
     })
     it('can initialize a new page from a post instance', function() {
-      var post = new Post(posts[0])
+      var post = new Post(posts[0], site.config)
       var p = new Page(post, site.config)
       expect(p.title).to.equal('The 1st Recipe')
       expect(p.type).to.equal('recipe')

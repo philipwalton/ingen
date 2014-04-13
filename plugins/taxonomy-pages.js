@@ -3,6 +3,8 @@ var natural = require('natural')
 var inflector = new natural.NounInflector()
 var _ = require('lodash-node/modern')
 
+var File = require('../lib/file')
+
 module.exports = function() {
 
   var Page = this.Page
@@ -18,7 +20,6 @@ module.exports = function() {
     Taxonomy.each(function(taxonomy) {
       if (layoutExists(taxonomy.type.toLowerCase())) {
         var obj = {
-          content: '',
           title: taxonomy.value,
           permalink: (taxonomy.typePlural + '/' + taxonomy.value).toLowerCase(),
           layout: taxonomy.type.toLowerCase()
@@ -30,7 +31,9 @@ module.exports = function() {
         obj.query = {}
         obj.query[taxonomy.type] = taxonomy.value
 
-        taxonomy.page = new Page(obj, config)
+        var f = new File(obj, '', config)
+
+        taxonomy.page = new Page(f, config)
       }
     })
 

@@ -10,7 +10,10 @@ var posts = fs.readJSONSync('test/fixtures/posts.json')
 
 describe('Post', function() {
 
-  var config = new Config({taxonomyTypes: ['tag']});
+  var config = new Config({
+    layoutsDirectory: 'test/fixtures',
+    taxonomyTypes: ['tag']
+  });
 
   describe('#init', function() {
     it('can initialize a new post from an object', function() {
@@ -23,7 +26,7 @@ describe('Post', function() {
     })
 
     it('can initialize a new post from a file instance', function() {
-      var f = new File('test/fixtures/post.md')
+      var f = new File('test/fixtures/post.md', config)
       // stub out the layout because we're not in the build context
       delete f.data.layout
 

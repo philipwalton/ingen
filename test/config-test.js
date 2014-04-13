@@ -60,10 +60,12 @@ describe('config', function() {
 
       expect(config.excludeFiles).to.deep.equal([
         'foo',
+        '.*',
         '_*',
         '_*/**/*',
         'package.json',
-        'node_modules/**/*'
+        'bower_components',
+        'node_modules'
       ])
 
       expect(config.watchExcludes).to.deep.equal([
