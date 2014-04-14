@@ -1,12 +1,18 @@
-var fs = require('fs-extra')
-var expect = require('chai').expect
-var _ = require('lodash-node/modern')
+var fs = require('fs-extra');
+var expect = require('chai').expect;
+var _ = require('lodash-node/modern');
 
-var Query = require('../lib/query')
+var Query = require('../lib/query');
+var Config = require('../lib/config');
+var Post = require('../lib/post');
 
-var posts = fs.readJSONSync('test/fixtures/posts.json')
-var recipes = posts.slice(0,5)
-var articles = posts.slice(5)
+var config = new Config();
+var postData = fs.readJSONSync('test/fixtures/posts.json');
+var posts = postData.map(function(post) {
+  return new Post(post, config);
+});
+var recipes = posts.slice(0,5);
+var articles = posts.slice(5);
 
 var recipesUnsorted = [
   recipes[1],
@@ -15,6 +21,7 @@ var recipesUnsorted = [
   recipes[2],
   recipes[0]
 ]
+
 var articlesUnsorted = [
   articles[1],
   articles[3],

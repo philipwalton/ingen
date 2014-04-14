@@ -19,8 +19,8 @@ module.exports = function() {
   function renderQuery(params, options) {
     var query = new Query(params, site.posts.all())
     return _.map(query.run(), function(post) {
-      return options.fn(post)
-    }).join('')
+      return options.fn(post.getTemplateData());
+    }).join('');
   }
 
   _.each(config.postTypes, function(type) {
@@ -31,7 +31,7 @@ module.exports = function() {
   })
 
   Handlebars.registerHelper('query', function(options) {
-    return renderQuery(this.page.query, options)
+    return renderQuery(this.query, options)
   })
 
 }

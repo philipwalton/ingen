@@ -1,12 +1,12 @@
-var fs = require('fs-extra')
-var expect = require('chai').expect
-var _ = require('lodash-node/modern')
+var fs = require('fs-extra');
+var assert = require('assert');
+var _ = require('lodash-node/modern');
 
-var Config = require('../lib/config')
-var Post = require('../lib/post')
-var Template = require('../lib/template')
-var Taxonomy = require('../lib/taxonomy')
-var posts = fs.readJSONSync('test/fixtures/posts.json')
+var Config = require('../lib/config');
+var Post = require('../lib/post');
+var Template = require('../lib/template');
+var Taxonomy = require('../lib/taxonomy');
+var posts = fs.readJSONSync('test/fixtures/posts.json');
 
 describe('Post', function() {
 
@@ -16,39 +16,47 @@ describe('Post', function() {
   });
 
   describe('#init', function() {
-    it('can initialize a new post from an object', function() {
-      var p = new Post(posts[0], config)
-      expect(p.title).to.equal('The 1st Recipe')
-      expect(p.type).to.equal('recipe')
-      expect(p.date).to.equal('2013-01-01T12:34:56-08:00')
-      expect(p.tags).to.deep.equal(['red', 'green'])
-      expect(p.content).to.equal('This is the content of the first recipe')
+
+    it('can initialize a new post from a template instance', function() {
+      var template = new Template('test/fixtures/post.md', config)
+      var post = new Post(template, 'post', config);
+
+      assert.equal(post.type, 'post');
+      assert.equal(post.template, template);
+      assert.equal(post.permalink.toString(), '/post-test/')
+      assert.equal(template.data.title, 'Post Test')
+      assert.equal(template.data.date, '2013-10-03T12:34:56-08:00')
+      assert.deepEqual(template.data.tags, ['foo', 'bar', 'fizz', 'buzz'])
+      assert.equal(template.content.trim(), 'Post test content.')
     })
 
-    it('can initialize a new post from a file instance', function() {
-      var template = new Template('test/fixtures/post.md', config)
-      // stub out the layout because we're not in the build context
-      delete template.data.layout
+    it('can initialize a new post from an object, which creates a template'
+        + 'instance behind the scenes', function() {
 
-      var p = new Post(template, 'post', config)
-      expect(p.title).to.equal('Post Test')
-      expect(p.type).to.equal('post')
-      expect(p.date).to.equal('2013-10-03T12:34:56-08:00')
-      expect(p.tags).to.deep.equal(['foo', 'bar', 'fizz', 'buzz'])
-      expect(p.content.trim()).to.equal('Post test content.')
+      var post = new Post(posts[0], config)
+
+      assert(post.template instanceof Template);
+
+      assert.equal(post.permalink.toString(), '/the-1st-recipe/')
+      assert.equal(post.template.data.title, 'The 1st Recipe')
+      assert.equal(post.template.data.type, 'recipe')
+      assert.equal(post.template.data.date, '2013-01-01T12:34:56-08:00')
+      assert.deepEqual(post.template.data.tags, ['red', 'green'])
+      assert.equal(post.template.content,
+        'This is the content of the first recipe');
     })
   })
 
   describe('#registerTaxonomies', function() {
     it('creates taxonomy objects for each taxonomy on the post', function() {
 
-      var p = new Post(posts[0], config)
-      p.registerTaxonomies()
+      var post = new Post(posts[0], config)
+      post.registerTaxonomies()
 
       var taxonomies = Taxonomy.all()
-      expect(Object.keys(taxonomies.tag)).to.deep.equal(['red', 'green'])
-      expect(taxonomies.tag.red.posts[0]).to.equal(p)
-      expect(taxonomies.tag.green.posts[0]).to.equal(p)
+      assert.deepEqual(Object.keys(taxonomies.tag), ['red', 'green'])
+      assert.equal(taxonomies.tag.red.posts[0], post)
+      assert.equal(taxonomies.tag.green.posts[0], post)
 
       Taxonomy.reset()
     })
@@ -56,12 +64,32 @@ describe('Post', function() {
 
   describe('#render', function() {
     it('renders the post content with any template data', function() {
-      var p = new Post({
+      var data =  {
+        type: 'article',
         title: 'This is the title',
         content: '{{title}}, and this is the content'
-      }, config)
-      p.render()
-      expect(p.content).to.equal('This is the title, and this is the content')
+      }
+      var post = new Post(data, config)
+      post.render()
+      assert.equal(post.content, 'This is the title, and this is the content')
+    })
+
+    it('makes an excerpt from the rendered content that strips out HTML and '
+        + 'extraneous whitespece', function() {
+
+      var data =  {
+        type: 'article',
+        title: 'This is the title',
+        content: '{{title}},\n\nand <b>here\'s</b> some content. Oh yeah!'
+      }
+      var config = new Config({ excerptLength: 8 });
+
+      var post = new Post(data, config);
+      post.render();
+      assert.equal(
+        post.excerpt,
+        'This is the title, and here\'s some content.'
+      );
     })
   })
 

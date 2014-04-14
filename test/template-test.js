@@ -1,6 +1,7 @@
 var assert = require('assert');
 var Template = require('../lib/template');
 var Config = require('../lib/config');
+var Permalink = require('../lib/permalink');
 
 describe('Template', function() {
 
@@ -66,6 +67,27 @@ describe('Template', function() {
       });
     });
 
+  });
+
+  describe('#renderContent', function() {
+    it('renders the template content by itself');
+  });
+
+  describe('#renderLayout', function() {
+    it('renders the template up the layout chain');
+  });
+
+  describe('#resolvePermalink', function() {
+
+    it('creates a new permalink object from its data', function() {
+
+      var template = new Template({ title: 'Foo Bar' }, '', config);
+      var permalink = template.resolvePermalink();
+
+      assert(permalink instanceof Permalink);
+      assert.equal(permalink.toString(), '/foo-bar/');
+
+    })
   });
 
   describe('.getOrCreateFromFile', function() {
