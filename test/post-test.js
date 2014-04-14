@@ -15,6 +15,8 @@ describe('Post', function() {
     taxonomyTypes: ['tag']
   });
 
+  afterEach(Taxonomy.reset)
+
   describe('#init', function() {
 
     it('can initialize a new post from a template instance', function() {
@@ -45,22 +47,20 @@ describe('Post', function() {
       assert.equal(post.template.content,
         'This is the content of the first recipe');
     })
-  })
 
-  describe('#registerTaxonomies', function() {
     it('creates taxonomy objects for each taxonomy on the post', function() {
-
       var post = new Post(posts[0], config)
-      post.registerTaxonomies()
-
       var taxonomies = Taxonomy.all()
       assert.deepEqual(Object.keys(taxonomies.tag), ['red', 'green'])
       assert.equal(taxonomies.tag.red.posts[0], post)
       assert.equal(taxonomies.tag.green.posts[0], post)
+    });
 
-      Taxonomy.reset()
-    })
+    it('sets hidden getter links for the taxonomy data properties');
+
   })
+
+
 
   describe('#render', function() {
     it('renders the post content with any template data', function() {

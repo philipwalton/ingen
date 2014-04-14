@@ -69,6 +69,13 @@ describe('Template', function() {
 
   });
 
+  describe('#setGetterLinks', function() {
+    // Setup getter links to properties on this object
+    // point to properties on the template data object.
+    // Ex: this.title >>> this.template.data.title
+    it('adds getters from an arbitrary object to the template data');
+  });
+
   describe('#renderContent', function() {
     it('renders the template content by itself');
   });
