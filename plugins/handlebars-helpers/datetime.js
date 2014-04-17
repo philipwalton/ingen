@@ -18,5 +18,5 @@ module.exports = function() {
       .format(format)
   }
 
-  Handlebars.registerHelper('datetime', datetime.bind(this))
+  Handlebars.registerHelper('datetime', datetime)
 }

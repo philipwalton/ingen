@@ -84,19 +84,6 @@ describe('Template', function() {
     it('renders the template up the layout chain');
   });
 
-  describe('#resolvePermalink', function() {
-
-    it('creates a new permalink object from its data', function() {
-
-      var template = new Template({ title: 'Foo Bar' }, '', config);
-      var permalink = template.resolvePermalink();
-
-      assert(permalink instanceof Permalink);
-      assert.equal(permalink.toString(), '/foo-bar/');
-
-    })
-  });
-
   describe('.getOrCreateFromFile', function() {
 
     it('returns a new instance '
