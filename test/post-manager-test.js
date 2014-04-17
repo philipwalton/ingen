@@ -1,6 +1,5 @@
 var fs = require('fs-extra');
 var expect = require('chai').expect;
-// var _ = require('lodash-node/modern')
 
 var PostManager = require('../lib/post-manager');
 var posts = fs.readJSONSync('test/fixtures/posts.json');

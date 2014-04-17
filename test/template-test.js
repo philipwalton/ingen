@@ -14,25 +14,25 @@ describe('Template', function() {
     it('creates a new file instance from a filename '
         + 'and config object', function() {
 
-      var filename = 'test/fixtures/file-child.html'
+      var filename = 'test/fixtures/file-child.html';
       var file = new Template(filename, config);
 
       assert.equal(file.filename, filename);
       assert.equal(file.content.trim(), 'File contents.');
       assert.equal(file.config, config);
-    })
+    });
 
     it('creates a new file instance from a data object, content '
         + 'and config object', function() {
 
-      var data = { foo: 'bar', fizz: 'buzz' }
-      var content = 'This is the content.'
+      var data = { foo: 'bar', fizz: 'buzz' };
+      var content = 'This is the content.';
       var file = new Template(data, content, config);
 
       assert.equal(file.data, data);
       assert.equal(file.content.trim(), content);
       assert.equal(file.config, config);
-    })
+    });
 
     it('merges its data with the data '
         + 'all the way up its layout chain.', function() {

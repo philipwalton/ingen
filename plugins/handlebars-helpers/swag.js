@@ -1,5 +1,5 @@
-var Swag = require('swag')
+var Swag = require('swag');
 
 module.exports = function() {
-  Swag.registerHelpers(this.Handlebars)
-}
+  Swag.registerHelpers(this.Handlebars);
+};

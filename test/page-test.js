@@ -43,62 +43,62 @@ describe('Page', function() {
     site = new Site({
       destination: 'test/_tmp',
       layoutsDirectory: 'test/fixtures'
-    })
-    site._registerPartials()
-  })
+    });
+    site._registerPartials();
+  });
 
   after(function() {
-    fs.removeSync(site.config.destination)
-  })
+    fs.removeSync(site.config.destination);
+  });
 
   beforeEach(function() {
-    Page.reset()
-  })
+    Page.reset();
+  });
 
   afterEach(function() {
-    Page.reset()
-  })
+    Page.reset();
+  });
 
   describe('.all', function() {
     it('returns an array of all existing pages', function() {
-      new Page(pages[0], site.config)
-      new Page(pages[1], site.config)
-      new Page(pages[2], site.config)
-      expect(Page.all().length).to.equal(3)
-      expect(Page.all()[0].template.data.title).to.equal('First Page')
-      expect(Page.all()[1].template.data.title).to.equal('Second Page')
-      expect(Page.all()[2].template.data.title).to.equal('Third Page')
-    })
-  })
+      new Page(pages[0], site.config);
+      new Page(pages[1], site.config);
+      new Page(pages[2], site.config);
+      expect(Page.all().length).to.equal(3);
+      expect(Page.all()[0].template.data.title).to.equal('First Page');
+      expect(Page.all()[1].template.data.title).to.equal('Second Page');
+      expect(Page.all()[2].template.data.title).to.equal('Third Page');
+    });
+  });
 
   describe('.each', function() {
     it('accepts a function, iterates over each page, '
         + 'and calls the function with the page as its argument', function() {
-      new Page(pages[0], site.config)
-      new Page(pages[1], site.config)
-      new Page(pages[2], site.config)
+      new Page(pages[0], site.config);
+      new Page(pages[1], site.config);
+      new Page(pages[2], site.config);
       Page.each(function(page, i) {
-        expect(page.template.data.title).to.equal(pages[i].title)
-      })
-    })
-  })
+        expect(page.template.data.title).to.equal(pages[i].title);
+      });
+    });
+  });
 
   describe('.reset', function() {
     it('restores the page list to an empty array', function() {
-      new Page(pages[0], site.config)
-      new Page(pages[1], site.config)
-      new Page(pages[2], site.config)
-      expect(Page.all().length).to.equal(3)
-      Page.reset()
-      expect(Page.all().length).to.equal(0)
-    })
-  })
+      new Page(pages[0], site.config);
+      new Page(pages[1], site.config);
+      new Page(pages[2], site.config);
+      expect(Page.all().length).to.equal(3);
+      Page.reset();
+      expect(Page.all().length).to.equal(0);
+    });
+  });
 
   describe('#init', function() {
 
     it('can initialize a new page from a post instance', function() {
-      var post = posts[0]
-      var page = new Page(post, site.config)
+      var post = posts[0];
+      var page = new Page(post, site.config);
       assert.equal(page.post, post);
       assert.equal(page.template, post.template);
       assert.equal(page.permalink.toString(), '/the-1st-recipe/');
@@ -112,7 +112,7 @@ describe('Page', function() {
       assert.equal(page.template, template);
       assert.equal(page.permalink.toString(), '/test-page/');
       assert.equal(page.template.data.title, 'Test Page');
-    })
+    });
 
     it('can initialize a new page from an object', function() {
       var page = new Page(pages[0], site.config);
@@ -120,20 +120,20 @@ describe('Page', function() {
       assert.equal(page.template.data.title, pages[0].title);
       assert.equal(page.template.data.layout, pages[0].layout);
       assert.equal(page.template.data.title, pages[0].title);
-    })
+    });
 
     it('uses the post\'s permalink if one exists', function() {
-      var post = posts[0]
+      var post = posts[0];
       var page = new Page(post, site.config);
       assert.equal(post.permalink, page.permalink);
-    })
+    });
 
-  })
+  });
 
   describe('#paginate', function() {
     it('creates additional pages based on the query', function() {
-      var page = new Page(pages[3], site.config)
-      page.paginate(posts)
+      var page = new Page(pages[3], site.config);
+      page.paginate(posts);
 
       var paginatedPages = Page.all();
       assert.equal(paginatedPages.length, 3);
@@ -149,8 +149,8 @@ describe('Page', function() {
       assert(paginatedPages[2].paginated);
       assert.equal(paginatedPages[2].nextPage, false);
       assert.equal(paginatedPages[2].prevPage, paginatedPages[1]);
-    })
-  })
+    });
+  });
 
   describe('#render', function() {
     it('renders the page content with any template data', function() {
@@ -159,12 +159,12 @@ describe('Page', function() {
         content: 'This is the {{foobar}}',
         layout: 'default',
         foobar: 'FooBar'
-      }, site.config)
-      p.render()
+      }, site.config);
+      p.render();
 
       assert(p.content.indexOf('This is the FooBar') > -1);
-    })
-  })
+    });
+  });
 
   describe('#write', function() {
     it('write a rendered page to the permalink location', function() {
@@ -173,15 +173,14 @@ describe('Page', function() {
         content: 'This is the {{foobar}}',
         layout: 'default',
         foobar: 'FooBar'
-      }, site.config)
-      p.render()
-      p.write()
+      }, site.config);
+      p.render();
+      p.write();
 
-      var outputFile = path.join(site.config.destination, 'this-is-the-title/index.html')
-      var output = fs.readFileSync(outputFile, 'utf-8'
-      )
+      var outputFile = path.join(site.config.destination, 'this-is-the-title/index.html');
+      var output = fs.readFileSync(outputFile, 'utf-8');
       assert(output.indexOf('This is the FooBar') > -1);
-    })
-  })
+    });
+  });
 
-})
+});

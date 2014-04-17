@@ -1,20 +1,20 @@
 // external dependencies
-var natural = require('natural')
-var inflector = new natural.NounInflector()
-var camelCase = require('change-case').camelCase
-var _ = require('lodash-node/modern')
+var natural = require('natural');
+var inflector = new natural.NounInflector();
+var camelCase = require('change-case').camelCase;
+var _ = require('lodash-node/modern');
 
 module.exports = function() {
 
-  var config = this.config
-  var Taxonomy = this.Taxonomy
-  var Handlebars = this.Handlebars
+  var config = this.config;
+  var Taxonomy = this.Taxonomy;
+  var Handlebars = this.Handlebars;
 
   _.each(config.postTypes, function(postType) {
     _.each(config.taxonomyTypes, function(taxonomyType) {
-      var taxonomyTypePlural = inflector.pluralize(taxonomyType)
-      var postTypePlural = inflector.pluralize(postType)
-      var helperName = camelCase(['if', postType, 'has', taxonomyType].join('_'))
+      var taxonomyTypePlural = inflector.pluralize(taxonomyType);
+      var postTypePlural = inflector.pluralize(postType);
+      var helperName = camelCase(['if', postType, 'has', taxonomyType].join('_'));
 
       // See if a the post context contains the given taxonomy
       //
@@ -27,9 +27,9 @@ module.exports = function() {
         function(value, options) {
           return this[taxonomyTypePlural] && _.contains(this[taxonomyTypePlural], value)
             ? options.fn(this)
-            : options.inverse(this)
+            : options.inverse(this);
         }
-      )
+      );
 
       // Get the post count for a given taxonomy
       //
@@ -41,9 +41,9 @@ module.exports = function() {
         camelCase(['count', postTypePlural, 'with', taxonomyType].join('_')),
         function(value, options) {
 
-          return Taxonomy.all()[taxonomyType][value].posts.length
+          return Taxonomy.all()[taxonomyType][value].posts.length;
         }
-      )
+      );
 
       // Iterate over each taxonomy of a given type
       //
@@ -54,13 +54,13 @@ module.exports = function() {
       Handlebars.registerHelper(
         camelCase(['each', taxonomyType].join('_')),
         function(options) {
-          var taxonomyValues = Taxonomy.all()[taxonomyType]
+          var taxonomyValues = Taxonomy.all()[taxonomyType];
           return _.map(_.keys(taxonomyValues).sort(), function(value) {
-            return options.fn(taxonomyValues[value])
-          }).join('')
+            return options.fn(taxonomyValues[value]);
+          }).join('');
         }
-      )
-    })
-  })
+      );
+    });
+  });
 
-}
+};

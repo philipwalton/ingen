@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
-var fs = require('fs-extra')
-var path = require('path')
-var program = require('commander')
-var camelCase = require('change-case').camelCase
-var assign = require('lodash-node/modern').assign
+var fs = require('fs-extra');
+var path = require('path');
+var program = require('commander');
+var camelCase = require('change-case').camelCase;
+var assign = require('lodash-node/modern').assign;
 
-var basePath = path.normalize(__dirname + path.sep + '..')
-var pkg = fs.readJSONSync(path.join(basePath, 'package.json'))
-var Site = require('../lib/site')
+var basePath = path.normalize(__dirname + path.sep + '..');
+var pkg = fs.readJSONSync(path.join(basePath, 'package.json'));
+var Site = require('../lib/site');
 
 function getOptions(keys) {
-  var options = {}
+  var options = {};
   for (var i = 0, key; key = keys[i]; i++) {
-    if (key in program) options[key] = program[key]
+    if (key in program) options[key] = program[key];
   }
   return options;
 }
@@ -30,9 +30,9 @@ function createSite() {
     'port',
     'watch',
     'includeDrafts'
-  ])
+  ]);
 
-  return new Site(assign(fileConfigSettings, commandLineOptions))
+  return new Site(assign(fileConfigSettings, commandLineOptions));
 }
 
 program
@@ -52,23 +52,23 @@ program
     'ignore posts with a draft value of `true`')
   .option('-c, --config [filepath]',
     'location of the config file (defaults to "./_config.json")',
-    './_config.json')
+    './_config.json');
 
 program
   .command('build')
   .description('Build the site')
   .action(function() {
-    createSite().build()
-  })
+    createSite().build();
+  });
 
 program
   .command('serve')
   .description('Serve the site locally')
   .action(function() {
-    createSite().serve()
-  })
+    createSite().serve();
+  });
 
-program.parse(process.argv)
+program.parse(process.argv);
 
 // default to showing --help
-if (program.rawArgs.length < 3) program.help()
+if (program.rawArgs.length < 3) program.help();
