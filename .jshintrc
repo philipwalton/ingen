@@ -2,13 +2,6 @@
   "boss": true,
   "eqnull": true,
   "expr": true,
-  "globals": {
-    "console": false
-  },
   "laxbreak": true,
-  "laxcomma": true,
-  "loopfunc": true,
-  "newcap": false,
-  "quotmark": "single",
-  "shadow": true
+  "quotmark": "single"
 }

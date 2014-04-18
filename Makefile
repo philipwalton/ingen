@@ -9,6 +9,6 @@ lint: $(src) $(test)
 	@ $(bins)/jshint --verbose $^
 
 test:
-	@node_modules/.bin/mocha --no-colors --reporter spec
+	@node_modules/.bin/mocha --reporter tap
 
 .PHONY: lint test

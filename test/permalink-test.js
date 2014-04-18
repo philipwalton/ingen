@@ -14,12 +14,12 @@ describe('Permalink', function() {
     });
 
     it('adds a trailing slash if the permalink doesn\'t have an extension', function() {
-      var p = new Permalink('foo.html');
-      expect(p.toString()).to.equal('/foo.html');
-      var p = new Permalink('foo');
-      expect(p.toString()).to.equal('/foo/');
-      var p = new Permalink('foo.bar');
-      expect(p.toString()).to.equal('/foo.bar');
+      var p1 = new Permalink('foo.html');
+      expect(p1.toString()).to.equal('/foo.html');
+      var p2 = new Permalink('foo');
+      expect(p2.toString()).to.equal('/foo/');
+      var p3 = new Permalink('foo.bar');
+      expect(p3.toString()).to.equal('/foo.bar');
     });
 
     it('can replace `:title` with a url-friendly post\'s title', function() {
