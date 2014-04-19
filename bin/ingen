@@ -39,9 +39,9 @@ program
   .version(pkg.version)
   .usage('[command] [options]')
   .option('-s, --source [dir]',
-    'set the source directory (defaults to "./)')
+    'set the source directory (defaults to ".")')
   .option('-d, --destination [dir]',
-    'set the destination directory (defaults to "./_site")')
+    'set the destination directory (defaults to "_site")')
   .option('-e, --env [value]',
     'set the environment (defaults to "production")')
   .option('-p, --port [number]',
@@ -51,7 +51,7 @@ program
   .option('-i, --include-drafts',
     'ignore posts with a draft value of `true`')
   .option('-c, --config [filepath]',
-    'location of the config file (defaults to "./_config.json")',
+    'location of the config file (defaults to "_config.json")',
     './_config.json');
 
 program
