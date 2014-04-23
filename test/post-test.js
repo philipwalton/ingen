@@ -56,11 +56,16 @@ describe('Post', function() {
       assert.equal(taxonomies.tag.green.posts[0], post);
     });
 
-    it('sets hidden getter links for the taxonomy data properties');
+    it('sets hidden getter links for some taxonomy properties', function() {
+      var template = new Template('test/fixtures/post.md', config);
+      var post = new Post(template, 'post', config);
+
+      assert.equal(post.title, post.template.data.title);
+      assert.equal(post.format, post.template.format);
+      assert.equal(post.filename, post.template.filename);
+    });
 
   });
-
-
 
   describe('#render', function() {
     it('renders the post content with any template data', function() {
