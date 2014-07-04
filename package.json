@@ -30,7 +30,8 @@
     "chai": "*",
     "shelljs": "*",
     "diff": "~1.0.8",
-    "sinon": "~1.9.1"
+    "sinon": "~1.9.1",
+    "jshint": "^2.5.0"
   },
   "dependencies": {
     "commander": "~2.0.0",
