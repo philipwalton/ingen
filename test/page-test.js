@@ -51,13 +51,8 @@ describe('Page', function() {
     fs.removeSync(site.config.destination);
   });
 
-  beforeEach(function() {
-    Page.reset();
-  });
-
-  afterEach(function() {
-    Page.reset();
-  });
+  beforeEach(Page.reset);
+  after(Page.reset);
 
   describe('.all', function() {
     it('returns an array of all existing pages', function() {
@@ -106,8 +101,7 @@ describe('Page', function() {
     });
 
     it('can initialize a new page from a template instance', function() {
-      var template = Template.getOrCreateFromFile('test/fixtures/page.html',
-          site.config);
+      var template = new Template('test/fixtures/page.html', site.config);
       var page = new Page(template, site.config);
       assert.equal(page.template, template);
       assert.equal(page.permalink.toString(), '/test-page/');
@@ -126,6 +120,16 @@ describe('Page', function() {
       var post = posts[0];
       var page = new Page(post, site.config);
       assert.equal(post.permalink, page.permalink);
+    });
+
+    it('sets hidden getter links for some taxonomy properties', function() {
+      var template = new Template('test/fixtures/page.html', site.config);
+      var page = new Page(template, site.config);
+
+      assert.equal(page.title, page.template.data.title);
+      assert.equal(page.date, page.template.data.date);
+      assert.equal(page.format, page.template.format);
+      assert.equal(page.filename, page.template.filename);
     });
 
   });
