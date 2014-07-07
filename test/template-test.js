@@ -34,7 +34,10 @@ describe('Template', function() {
       assert.equal(template.config, config);
     });
 
-    it('merges its data with the data '
+  });
+
+  describe('#getData', function() {
+    it('returns its merged data with the data '
         + 'all the way up its layout chain.', function() {
 
       var data = {
@@ -47,7 +50,7 @@ describe('Template', function() {
       var template1 = new Template('test/fixtures/template-child.html', config);
       var template2 = new Template(data, '', config);
 
-      assert.deepEqual(template1.data, {
+      assert.deepEqual(template1.getData(), {
         layout: 'template-parent',
         foo: 'foo from child',
         bar: 'foo from parent',
@@ -56,7 +59,7 @@ describe('Template', function() {
           limit: 6
         }
       });
-      assert.deepEqual(template2.data, {
+      assert.deepEqual(template2.getData(), {
         layout: 'template-parent',
         foo: 'foo from data',
         bar: 'foo from parent',
@@ -66,7 +69,6 @@ describe('Template', function() {
         }
       });
     });
-
   });
 
   describe('#renderContent', function() {

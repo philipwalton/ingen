@@ -122,15 +122,15 @@ describe('Page', function() {
       assert.equal(post.permalink, page.permalink);
     });
 
-    it('sets hidden getter links for some taxonomy properties', function() {
-      var template = new Template('test/fixtures/page.html', site.config);
-      var page = new Page(template, site.config);
+    // it('sets hidden getter links for some taxonomy properties', function() {
+    //   var template = new Template('test/fixtures/page.html', site.config);
+    //   var page = new Page(template, site.config);
 
-      assert.equal(page.title, page.template.data.title);
-      assert.equal(page.date, page.template.data.date);
-      assert.equal(page.format, page.template.format);
-      assert.equal(page.filename, page.template.filename);
-    });
+    //   assert.equal(page.title, page.template.data.title);
+    //   assert.equal(page.date, page.template.data.date);
+    //   assert.equal(page.format, page.template.format);
+    //   assert.equal(page.filename, page.template.filename);
+    // });
 
   });
 

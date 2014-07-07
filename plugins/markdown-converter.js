@@ -4,7 +4,7 @@ module.exports = function() {
 
   // This could be for a post or a page.
   this.events.on('afterRenderContent', function(p) {
-    if (p.format == 'markdown') {
+    if (p.data.format == 'markdown') {
       p.content = marked(p.content);
     }
   });
