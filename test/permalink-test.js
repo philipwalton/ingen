@@ -96,7 +96,7 @@ describe('Permalink', function() {
         date: '2013-06-13T12:34:56-08:00'
       });
       p.append('page/:pagenum');
-      expect(p.permalink).to.equal('/sub-directory/:title/page/:pagenum');
+      expect(p.permalink).to.equal('/sub-directory/:title/page/:pagenum/');
     });
 
     it('accounts for permalinks that end with a file instead of a directory', function() {
