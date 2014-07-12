@@ -34,7 +34,39 @@ describe('Template', function() {
       assert.equal(template.config, config);
     });
 
-    it('merges its data with the data '
+  });
+
+  describe('#clone', function() {
+    it('clones all properties of a template created from an object.',
+        function() {
+
+      var data = {
+        foo: 'bar',
+        fizz: 'buzz'
+      };
+      var template = new Template(data, 'This is the content', config);
+      var clone = template.clone();
+
+      assert.equal(clone.content, template.content);
+      assert.deepEqual(clone.data, template.data);
+      assert.notEqual(clone, template);
+    });
+
+    it('clones all properties of a template created from a file.', function() {
+
+      var template = new Template('test/fixtures/post.md', config);
+      var clone = template.clone();
+
+      assert.equal(clone.content, template.content);
+      assert.equal(clone.format, template.format);
+      assert.equal(clone.layout, template.layout);
+      assert.deepEqual(clone.data, template.data);
+      assert.notEqual(clone, template);
+    });
+  });
+
+  describe('#getData', function() {
+    it('returns its merged data with the data '
         + 'all the way up its layout chain.', function() {
 
       var data = {
@@ -66,7 +98,6 @@ describe('Template', function() {
         }
       });
     });
-
   });
 
   describe('#renderContent', function() {
