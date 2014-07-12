@@ -56,15 +56,46 @@ describe('Post', function() {
       assert.equal(taxonomies.tag.green.posts[0], post);
     });
 
-    // it('sets hidden getter links for some taxonomy properties', function() {
-    //   var template = new Template('test/fixtures/post.md', config);
-    //   var post = new Post(template, 'post', config);
+    it('sets hidden getter links for some taxonomy properties', function() {
+      var template = new Template('test/fixtures/post.md', config);
+      var post = new Post(template, 'post', config);
 
-    //   assert.equal(post.title, post.template.data.title);
-    //   assert.equal(post.format, post.template.format);
-    //   assert.equal(post.filename, post.template.filename);
-    // });
+      assert.equal(post.title, post.template.data.title);
+      assert.equal(post.format, post.template.format);
+      assert.equal(post.filename, post.template.filename);
+    });
 
+  });
+
+  describe('#clone', function() {
+    it('clones a post created from an object.', function() {
+      var data =  {
+        type: 'article',
+        title: 'This is the title',
+        content: '{{title}}, and this is the content'
+      };
+      var post = new Post(data, config);
+      var clone = post.clone();
+
+      assert.equal(clone.type, post.type);
+      assert.equal(clone.title, post.title);
+      assert.equal(clone.content, post.content);
+      assert.equal(clone.template, post.template);
+      assert.notEqual(clone, post);
+    });
+
+    it('clones a post created from a template.', function() {
+      var template = new Template('test/fixtures/post.md', config);
+      var post = new Post(template, 'post', config);
+      var clone = post.clone();
+
+      assert.equal(clone.type, post.type);
+      assert.equal(clone.title, post.title);
+      assert.equal(clone.content, post.content);
+      assert.equal(clone.date, post.date);
+      assert.equal(clone.template, post.template);
+      assert.notEqual(clone, post);
+    });
   });
 
   describe('#render', function() {

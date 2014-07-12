@@ -122,16 +122,54 @@ describe('Page', function() {
       assert.equal(post.permalink, page.permalink);
     });
 
-    // it('sets hidden getter links for some taxonomy properties', function() {
-    //   var template = new Template('test/fixtures/page.html', site.config);
-    //   var page = new Page(template, site.config);
+    it('sets hidden getter links for some taxonomy properties', function() {
+      var template = new Template('test/fixtures/page.html', site.config);
+      var page = new Page(template, site.config);
 
-    //   assert.equal(page.title, page.template.data.title);
-    //   assert.equal(page.date, page.template.data.date);
-    //   assert.equal(page.format, page.template.format);
-    //   assert.equal(page.filename, page.template.filename);
-    // });
+      assert.equal(page.title, page.template.data.title);
+      assert.equal(page.date, page.template.data.date);
+      assert.equal(page.format, page.template.format);
+      assert.equal(page.filename, page.template.filename);
+    });
 
+  });
+
+  describe('#clone', function() {
+    it('can clone a page that was created from an object', function() {
+      var page = new Page(pages[0], site.config);
+      var clone = page.clone();
+
+      assert.equal(clone.title, page.title);
+      assert.equal(clone.permalink.toString(), page.permalink.toString());
+      assert.equal(clone.permalink, page.permalink);
+      assert.equal(clone.template, page.template);
+      assert.notEqual(clone, page);
+    });
+
+    it('can clone a page that was created from a template', function() {
+      var template = new Template('test/fixtures/page.html', site.config);
+      var page = new Page(template, site.config);
+      var clone = page.clone();
+
+      assert.equal(clone.title, page.title);
+      assert.equal(clone.permalink.toString(), page.permalink.toString());
+      assert.equal(clone.permalink, page.permalink);
+      assert.equal(clone.template, page.template);
+      assert.notEqual(clone, page);
+    });
+
+    it('can clone a page that was created from a post', function() {
+      var post = posts[0];
+      var page = new Page(post, site.config);
+      var clone = page.clone();
+
+      assert.equal(clone.title, page.title);
+      assert.equal(clone.permalink.toString(), page.permalink.toString());
+      assert.equal(clone.permalink, page.permalink);
+      assert.equal(clone.template, page.template);
+      assert.equal(clone.post, page.post);
+      assert.notEqual(clone, page);
+    });
   });
 
   describe('#paginate', function() {

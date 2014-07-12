@@ -44,7 +44,7 @@ describe('ingen', function() {
 
   beforeEach(clean);
 
-  // after(clean);
+  after(clean);
 
   describe('build', function() {
 

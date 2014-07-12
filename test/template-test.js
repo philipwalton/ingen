@@ -36,6 +36,35 @@ describe('Template', function() {
 
   });
 
+  describe('#clone', function() {
+    it('clones all properties of a template created from an object.',
+        function() {
+
+      var data = {
+        foo: 'bar',
+        fizz: 'buzz'
+      };
+      var template = new Template(data, 'This is the content', config);
+      var clone = template.clone();
+
+      assert.equal(clone.content, template.content);
+      assert.deepEqual(clone.data, template.data);
+      assert.notEqual(clone, template);
+    });
+
+    it('clones all properties of a template created from a file.', function() {
+
+      var template = new Template('test/fixtures/post.md', config);
+      var clone = template.clone();
+
+      assert.equal(clone.content, template.content);
+      assert.equal(clone.format, template.format);
+      assert.equal(clone.layout, template.layout);
+      assert.deepEqual(clone.data, template.data);
+      assert.notEqual(clone, template);
+    });
+  });
+
   describe('#getData', function() {
     it('returns its merged data with the data '
         + 'all the way up its layout chain.', function() {
@@ -50,7 +79,7 @@ describe('Template', function() {
       var template1 = new Template('test/fixtures/template-child.html', config);
       var template2 = new Template(data, '', config);
 
-      assert.deepEqual(template1.getData(), {
+      assert.deepEqual(template1.data, {
         layout: 'template-parent',
         foo: 'foo from child',
         bar: 'foo from parent',
@@ -59,7 +88,7 @@ describe('Template', function() {
           limit: 6
         }
       });
-      assert.deepEqual(template2.getData(), {
+      assert.deepEqual(template2.data, {
         layout: 'template-parent',
         foo: 'foo from data',
         bar: 'foo from parent',
